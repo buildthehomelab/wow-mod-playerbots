@@ -300,6 +300,8 @@ bool PlayerbotAIConfig::Initialize()
     EnableBroadcasts = sConfigMgr->GetOption<bool>("Playerbots.EnableBroadcasts", true);
     RandomBotTalk = sConfigMgr->GetOption<bool>("Playerbots.RandomBotTalk", false);
     RandomBotEmote = sConfigMgr->GetOption<bool>("Playerbots.RandomBotEmote", false);
+    EnableScarletMonasteryMechanics =
+        sConfigMgr->GetOption<bool>("Playerbots.EnableScarletMonasteryMechanics", false);
     EnableHerodWhirlwindAvoidance =
         sConfigMgr->GetOption<bool>("Playerbots.EnableHerodWhirlwindAvoidance", false);
     RandomBotSuggestDungeons = sConfigMgr->GetOption<bool>("Playerbots.RandomBotSuggestDungeons", true);
