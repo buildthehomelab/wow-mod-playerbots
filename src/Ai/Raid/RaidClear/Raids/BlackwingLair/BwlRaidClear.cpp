@@ -176,6 +176,12 @@ namespace
     }
 }
 
+void RaidClearBlackwingLairStrategy::InitReactionTriggers(std::vector<TriggerNode*>& triggers)
+{
+    triggers.push_back(new TriggerNode("rc bwl chromaggus breath",
+                                      { NextAction("rc bwl chromaggus hide", ACTION_EMERGENCY + 4) }));
+}
+
 void RaidClearBlackwingLairStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 {
     // Under a reflect: the spell of the other school that playerbots ranks below the wand (a

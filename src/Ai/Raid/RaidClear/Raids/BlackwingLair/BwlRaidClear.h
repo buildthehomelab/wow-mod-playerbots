@@ -625,6 +625,7 @@ class RaidClearBlackwingLairStrategy : public Strategy
 public:
     RaidClearBlackwingLairStrategy(PlayerbotAI* botAI) : Strategy(botAI) {}
     std::string const getName() override { return "rc bwl"; }
+    void InitReactionTriggers(std::vector<TriggerNode*>& triggers) override;
     void InitTriggers(std::vector<TriggerNode*>& triggers) override;
     void InitMultipliers(std::vector<Multiplier*>& multipliers) override;
     bool HasTargetExclusions() const override { return true; }
@@ -838,6 +839,9 @@ public:
     RcBwlChromaggusHideAction(PlayerbotAI* botAI)
         : RcBwlHideAction(botAI, "rc bwl chromaggus hide", RaidClear::BlackwingLair::CHROMAGGUS_COVER_RANGE,
                           RaidClear::BlackwingLair::CHROMAGGUS_COVER_PATH) {}
+
+    bool isUseful() override;
+    bool ShouldReactionInterruptCast() const override { return true; }
 
 protected:
     Unit* HideFrom() override;

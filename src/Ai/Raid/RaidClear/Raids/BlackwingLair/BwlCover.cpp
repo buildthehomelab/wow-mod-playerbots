@@ -556,9 +556,23 @@ void RaidClear::BlackwingLair::NoteChromaggusBreath(Creature* boss, uint32 spell
     if (!boss || !IsBreath(spellId))
         return;
     uint32 const now = getMSTime();
-    std::lock_guard<std::mutex> guard(sBreathLock);
-    BreathClock& clock = ClockOf(boss, now);
-    clock.lastBreathMs = now ? now : 1;
+    {
+        std::lock_guard<std::mutex> guard(sBreathLock);
+        BreathClock& clock = ClockOf(boss, now);
+        clock.lastBreathMs = now ? now : 1;
+    }
+    for (auto const& ref : boss->GetMap()->GetPlayers())
+    {
+        Player* player = ref.GetSource();
+        if (!player || !player->IsAlive() || boss->GetVictim() == player || !SeenBy(boss, player))
+            continue;
+        PlayerbotAI* botAI = GET_PLAYERBOT_AI(player);
+        if (botAI && botAI->HasStrategy("rc bwl", BOT_STATE_COMBAT))
+        {
+            botAI->RequestSpellInterrupt();
+            botAI->ResetActionDuration();
+        }
+    }
 }
 
 // --- Hiding ------------------------------------------------------------------------
@@ -667,6 +681,14 @@ bool RcBwlChromaggusBreathTrigger::IsActive()
         return false;
     Creature* boss = FightingBoss(bot, NPC_CHROMAGGUS);
     return boss && HideFromChromaggus(bot, boss);
+}
+
+bool RcBwlChromaggusHideAction::isUseful()
+{
+    if (!bot->IsAlive() || !botAI->CanMove())
+        return false;
+    Unit* boss = HideFrom();
+    return boss && SeenBy(boss, bot);
 }
 
 Unit* RcBwlChromaggusHideAction::HideFrom()

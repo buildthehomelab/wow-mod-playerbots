@@ -26,6 +26,7 @@ public:
         creators["bwl razorgore mark boss"] = &RaidBwlActionContext::bwl_razorgore_mark_boss;
 
         creators["bwl vaelastrasz fire resistance"] = &RaidBwlActionContext::bwl_vaelastrasz_fire_resistance_action;
+        creators["bwl vaelastrasz rear flank"] = &RaidBwlActionContext::bwl_vaelastrasz_rear_flank;
         creators["bwl vaelastrasz move away"] = &RaidBwlActionContext::bwl_vaelastrasz_move_away;
 
         creators["bwl broodlord fire resistance"] = &RaidBwlActionContext::bwl_broodlord_fire_resistance_action;
@@ -52,6 +53,7 @@ private:
     static Action* bwl_razorgore_avoid_aoe(PlayerbotAI* botAI) { return new BwlRazorgoreAvoidAoeAction(botAI); }
     static Action* bwl_razorgore_mark_boss(PlayerbotAI* botAI) { return new BwlRazorgoreMarkBossAction(botAI); }
     static Action* bwl_vaelastrasz_fire_resistance_action(PlayerbotAI* botAI) { return new BossFireResistanceAction(botAI, "vaelastrasz the corrupt"); }
+    static Action* bwl_vaelastrasz_rear_flank(PlayerbotAI* botAI) { return new BwlVaelastraszRearFlankAction(botAI); }
     static Action* bwl_vaelastrasz_move_away(PlayerbotAI* botAI) { return new BwlVaelastraszMoveAwayAction(botAI); }
     static Action* bwl_broodlord_fire_resistance_action(PlayerbotAI* botAI) { return new BossFireResistanceAction(botAI, "broodlord lashlayer"); }
     static Action* bwl_broodlord_ranged_move_away(PlayerbotAI* botAI) { return new BwlBroodlordRangedMoveAwayAction(botAI); }

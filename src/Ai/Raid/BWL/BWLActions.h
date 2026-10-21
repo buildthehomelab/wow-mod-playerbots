@@ -58,6 +58,14 @@ public:
 
 // Vaelastrasz the Corrupt
 
+class BwlVaelastraszRearFlankAction : public BossRearFlankAction
+{
+public:
+    BwlVaelastraszRearFlankAction(PlayerbotAI* botAI)
+        : BossRearFlankAction(botAI, "vaelastrasz the corrupt") {}
+    bool isUseful() override;
+};
+
 class BwlVaelastraszMoveAwayAction : public MovementAction
 {
 public:

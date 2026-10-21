@@ -225,6 +225,14 @@ bool BwlRazorgoreMarkBossAction::isUseful()
 
 // Vaelastrasz the Corrupt
 
+bool BwlVaelastraszRearFlankAction::isUseful()
+{
+    if (PlayerbotAI::IsRanged(bot) || PlayerbotAI::IsHeal(bot))
+        return false;
+    Unit* boss = GetTarget();
+    return boss && boss->GetVictim() != bot && BossRearFlankAction::isUseful();
+}
+
 bool BwlVaelastraszMoveAwayAction::Execute(Event /*event*/)
 {
     Unit* boss = AI_VALUE2(Unit*, "find target", "vaelastrasz the corrupt");

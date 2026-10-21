@@ -141,6 +141,14 @@ namespace RaidClear
         else if (!wantAvoid && hasAvoid && !botAI->HasGameClientMaster())
             botAI->ChangeStrategy(std::string("-") + AVOID_AOE_STRATEGY, BOT_STATE_COMBAT);
 
+        // Reactions run before the cast wait, so Chromaggus' warning can stop a long cast.
+        bool const wantBwlReaction = mapId == BlackwingLair::MAP_ID && sConfig.IsRaidEnabled(mapId);
+        bool const hasBwlReaction = botAI->HasStrategy("rc bwl", BOT_STATE_REACTION);
+        if (wantBwlReaction && !hasBwlReaction)
+            botAI->ChangeStrategy("+rc bwl", BOT_STATE_REACTION);
+        else if (!wantBwlReaction && hasBwlReaction)
+            botAI->ChangeStrategy("-rc bwl", BOT_STATE_REACTION);
+
         for (RaidEntry const& raid : Raids)
         {
             bool const want = raid.mapId == mapId && sConfig.IsRaidEnabled(raid.mapId);
