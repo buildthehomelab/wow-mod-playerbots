@@ -13,7 +13,17 @@ class ArcanistDoanMoveOutOfDetonationAction : public MovementAction
 {
 public:
     ArcanistDoanMoveOutOfDetonationAction(PlayerbotAI* botAI)
-        : MovementAction(botAI, "arcanist doan move out of detonation") {}
+        : MovementAction(botAI, "arcanist doan move out of detonation")
+    {
+    }
+    bool Execute(Event event) override;
+};
+
+class HerodWhirlwindEscapeAction : public MovementAction
+{
+public:
+    HerodWhirlwindEscapeAction(PlayerbotAI* botAI) : MovementAction(botAI, "herod whirlwind escape") {}
+    bool isUseful() override;
     bool Execute(Event event) override;
 };
 

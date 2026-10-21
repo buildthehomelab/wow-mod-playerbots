@@ -17,9 +17,14 @@ public:
     {
         creators["arcanist doan boss casting detonation"] =
             &VanillaDungeonScarletMonasteryTriggerContext::arcanist_doan_boss_casting_detonation;
+        creators["herod whirlwind"] = &VanillaDungeonScarletMonasteryTriggerContext::herod_whirlwind;
     }
+
 private:
-    static Trigger* arcanist_doan_boss_casting_detonation(PlayerbotAI* botAI) {
+    static Trigger* herod_whirlwind(PlayerbotAI* botAI) { return new HerodWhirlwindTrigger(botAI); }
+
+    static Trigger* arcanist_doan_boss_casting_detonation(PlayerbotAI* botAI)
+    {
         return new ArcanistDoanBossCastingDetonationTrigger(botAI);
     }
 };

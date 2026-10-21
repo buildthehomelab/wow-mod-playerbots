@@ -17,9 +17,14 @@ public:
     {
         creators["arcanist doan move out of detonation"] =
             &VanillaDungeonScarletMonasteryActionContext::arcanist_doan_move_out_of_detonation;
+        creators["herod whirlwind escape"] = &VanillaDungeonScarletMonasteryActionContext::herod_whirlwind_escape;
     }
+
 private:
-    static Action* arcanist_doan_move_out_of_detonation(PlayerbotAI* botAI) {
+    static Action* herod_whirlwind_escape(PlayerbotAI* botAI) { return new HerodWhirlwindEscapeAction(botAI); }
+
+    static Action* arcanist_doan_move_out_of_detonation(PlayerbotAI* botAI)
+    {
         return new ArcanistDoanMoveOutOfDetonationAction(botAI);
     }
 };

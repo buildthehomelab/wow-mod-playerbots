@@ -5,6 +5,7 @@
  */
 
 #include "SMMultipliers.h"
+
 #include "GenericSpellActions.h"
 #include "MovementActions.h"
 #include "Playerbots.h"
@@ -19,8 +20,7 @@ float ArcanistDoanDetonationMultiplier::GetValue(Action* action)
     if (dynamic_cast<ArcanistDoanMoveOutOfDetonationAction*>(action))
         return 1.0f;
 
-    bool const isMovement =
-        dynamic_cast<MovementAction*>(action) || dynamic_cast<CastReachTargetSpellAction*>(action);
+    bool const isMovement = dynamic_cast<MovementAction*>(action) || dynamic_cast<CastReachTargetSpellAction*>(action);
     bool const isSpell = dynamic_cast<CastSpellAction*>(action);
     if (!isMovement && !isSpell)
         return 1.0f;
@@ -35,4 +35,25 @@ float ArcanistDoanDetonationMultiplier::GetValue(Action* action)
 
     // Inside the blast radius, standing still to cast is how bots die; outside it they may keep casting.
     return bot->GetExactDist2d(doan) < DETONATION_SAFE_DISTANCE ? 0.0f : 1.0f;
+}
+
+float HerodWhirlwindMultiplier::GetValue(Action* action)
+{
+    if (dynamic_cast<HerodWhirlwindEscapeAction*>(action))
+        return 1.0f;
+
+    bool const isMovement = dynamic_cast<MovementAction*>(action) || dynamic_cast<CastReachTargetSpellAction*>(action);
+    bool const isSpell = dynamic_cast<CastSpellAction*>(action);
+    if (!isMovement && !isSpell)
+        return 1.0f;
+
+    Unit* herod = AI_VALUE2(Unit*, "find target", "herod");
+    if (!IsHerodWhirlwinding(herod))
+        return 1.0f;
+
+    // Keep follow/chase from undoing the escape while Herod is still spinning.
+    if (isMovement)
+        return 0.0f;
+
+    return bot->GetExactDist2d(herod) < HEROD_WHIRLWIND_SAFE_DISTANCE ? 0.0f : 1.0f;
 }

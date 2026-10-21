@@ -7,9 +7,10 @@
 #ifndef PLAYERBOTS_SMSHARED_H
 #define PLAYERBOTS_SMSHARED_H
 
+#include <type_traits>
+
 #include "Common.h"
 #include "Unit.h"
-#include <type_traits>
 
 namespace SMShared
 {
@@ -22,7 +23,7 @@ constexpr uint32 Id(T value)
 
 enum class SMSpells : uint32
 {
-    SPELL_DETONATION    = 9435,
+    SPELL_DETONATION = 9435,
     SPELL_ARCANE_BUBBLE = 9438,
 };
 
@@ -35,9 +36,18 @@ inline constexpr float DETONATION_SAFE_DISTANCE = 36.0f;
 inline bool IsDetonationImminent(Unit* doan)
 {
     return doan->HasAura(Id(SMSpells::SPELL_ARCANE_BUBBLE)) ||
-        doan->FindCurrentSpellBySpellId(Id(SMSpells::SPELL_DETONATION));
+           doan->FindCurrentSpellBySpellId(Id(SMSpells::SPELL_DETONATION));
 }
 
+inline constexpr uint32 SPELL_HEROD_WHIRLWIND = 8989;
+// Leave four yards beyond the eight-yard damage radius.
+inline constexpr float HEROD_WHIRLWIND_SAFE_DISTANCE = 12.0f;
+
+inline bool IsHerodWhirlwinding(Unit* herod)
+{
+    return herod && herod->IsAlive() && herod->GetMapId() == SM_MAP_ID &&
+           (herod->HasAura(SPELL_HEROD_WHIRLWIND) || herod->FindCurrentSpellBySpellId(SPELL_HEROD_WHIRLWIND));
 }
+}  // namespace SMShared
 
 #endif

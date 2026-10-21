@@ -7,9 +7,10 @@
 #ifndef PLAYERBOTS_SMSTRATEGY_H
 #define PLAYERBOTS_SMSTRATEGY_H
 
-#include "Strategy.h"
 #include <string>
 #include <vector>
+
+#include "Strategy.h"
 
 class VanillaDungeonScarletMonasteryStrategy : public Strategy
 {

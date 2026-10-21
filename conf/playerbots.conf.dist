@@ -3250,3 +3250,7 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Enable escape from Herod's Whirlwind in Scarlet Monastery, including tanks.
+# Bots hold their distance until Whirlwind ends. Default: 0 (disabled).
+Playerbots.EnableHerodWhirlwindAvoidance = 0

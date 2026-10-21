@@ -5,6 +5,8 @@
  */
 
 #include "SMActions.h"
+
+#include "LastMovementValue.h"
 #include "Playerbots.h"
 #include "SMShared.h"
 
@@ -22,4 +24,25 @@ bool ArcanistDoanMoveOutOfDetonationAction::Execute(Event /*event*/)
 
     bot->CastStop();
     return MoveAway(doan, DETONATION_SAFE_DISTANCE - distance);
+}
+
+bool HerodWhirlwindEscapeAction::isUseful()
+{
+    Unit* herod = AI_VALUE2(Unit*, "find target", "herod");
+    return IsHerodWhirlwinding(herod) && bot->GetExactDist2d(herod) < HEROD_WHIRLWIND_SAFE_DISTANCE;
+}
+
+bool HerodWhirlwindEscapeAction::Execute(Event /*event*/)
+{
+    Unit* herod = AI_VALUE2(Unit*, "find target", "herod");
+    if (!IsHerodWhirlwinding(herod))
+        return false;
+
+    float const distance = bot->GetExactDist2d(herod);
+    if (distance >= HEROD_WHIRLWIND_SAFE_DISTANCE)
+        return false;
+
+    bot->CastStop();
+    AI_VALUE(LastMovement&, "last movement").clear();
+    return MoveAway(herod, HEROD_WHIRLWIND_SAFE_DISTANCE - distance);
 }

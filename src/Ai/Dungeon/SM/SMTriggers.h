@@ -13,7 +13,16 @@ class ArcanistDoanBossCastingDetonationTrigger : public Trigger
 {
 public:
     ArcanistDoanBossCastingDetonationTrigger(PlayerbotAI* botAI)
-        : Trigger(botAI, "arcanist doan boss casting detonation") {}
+        : Trigger(botAI, "arcanist doan boss casting detonation")
+    {
+    }
+    bool IsActive() override;
+};
+
+class HerodWhirlwindTrigger : public Trigger
+{
+public:
+    HerodWhirlwindTrigger(PlayerbotAI* botAI) : Trigger(botAI, "herod whirlwind") {}
     bool IsActive() override;
 };
 

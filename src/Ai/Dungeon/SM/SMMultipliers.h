@@ -12,8 +12,14 @@
 class ArcanistDoanDetonationMultiplier : public Multiplier
 {
 public:
-    ArcanistDoanDetonationMultiplier(PlayerbotAI* botAI)
-        : Multiplier(botAI, "arcanist doan detonation") {}
+    ArcanistDoanDetonationMultiplier(PlayerbotAI* botAI) : Multiplier(botAI, "arcanist doan detonation") {}
+    float GetValue(Action* action) override;
+};
+
+class HerodWhirlwindMultiplier : public Multiplier
+{
+public:
+    HerodWhirlwindMultiplier(PlayerbotAI* botAI) : Multiplier(botAI, "herod whirlwind") {}
     float GetValue(Action* action) override;
 };
 
