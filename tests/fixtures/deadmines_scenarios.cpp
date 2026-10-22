@@ -123,7 +123,7 @@ int main()
     bot.combat = false;  // A lingering ground area remains dangerous after combat ends.
     assert(Deadmines::CollectHazard(&ai).active);
     bot.combat = true;
-    // Both circles are individually actionable. The enclosing escape must clear both.
+    // Both circles are individually actionable and share one enclosing escape objective.
     DynamicObject overlap;
     overlap.x = 4;
     Aura overlapping;
@@ -160,6 +160,33 @@ int main()
     assert(!escape.Execute({}));
     clockNow += 250;
     assert(multipliers[0]->GetValue(&heal) == 1);
+    // A wide floor needs several real FleeDistance-limited steps to leave.
+    ai.moveBlocked = false;
+    bot.moving = false;
+    floor.x = floor.y = bot.x = bot.y = 0;
+    floor.radius = 12;
+    harmful.expired = false;
+    DeadminesEscapeAction wideEscape(&ai);
+    int initialMoves = ai.moves;
+    for (int step = 0; step < 3; ++step)
+    {
+        clockNow += 600;
+        assert(wideEscape.Execute({}));
+        assert(ai.moves == initialMoves + step + 1);
+        assert(bot.spline.destination.x == bot.x + 5);
+        clockNow += 100;
+        assert(wideEscape.Execute({}) && ai.moves == initialMoves + step + 1);
+        bot.Relocate(bot.spline.destination.x, bot.spline.destination.y, bot.spline.destination.z);
+        bot.spline.done = true;
+        bot.moving = false;
+    }
+    assert(bot.x == 15 && !Deadmines::CollectHazard(&ai).active && !wideEscape.Execute({}));
+    // Collision/no-progress endpoints must still be stopped.
+    bot.x = 0;
+    ai.fleeDistance = 0;
+    clockNow += 600;
+    assert(!wideEscape.Execute({}) && !bot.moving && bot.spline.done);
+    ai.fleeDistance = 5;
     sPlayerbotAIConfig.EnableDeadminesMechanics = false;
     harmful.expired = false;
     assert(!Deadmines::InHazard(&ai) && !Deadmines::CollectHazard(&ai).active);

@@ -357,6 +357,7 @@ public:
     uint32 castId = 0;
     Unit* castTarget = nullptr;
     int moves = 0;
+    float fleeDistance = 5.0f;
     explicit PlayerbotAI(Player* p) : bot(p) {}
     Player* GetBot() { return bot; }
     Context* GetAiObjectContext() { return &context; }
@@ -403,7 +404,8 @@ struct MovementAction : Action
         Unit center;
         center.x = pos.x;
         center.y = pos.y;
-        return MoveAway(&center, radius + 2 - bot->GetExactDist2d(&center));
+        // Match the generic helper's capped step, rather than jumping straight out.
+        return MoveAway(&center, std::min(radius + 1.0f, botAI->fleeDistance));
     }
     bool MoveAway(Unit* u, float distance)
     {

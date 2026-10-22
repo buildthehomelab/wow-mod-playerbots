@@ -41,7 +41,7 @@ void IncludeHazard(Deadmines::Hazard& result, Position const& center, float radi
         result = {true, center, radius};
         return;
     }
-    // Enclose all currently overlapping hazards so an escape cannot end in the next circle.
+    // Use one escape objective for all currently overlapping hazards.
     float const enclosingRadius = (distance + result.radius + radius) / 2.0f;
     float const ratio = (enclosingRadius - result.radius) / distance;
     result.center.Relocate(

@@ -61,9 +61,11 @@ hard leash on the existing combat engine.
 
 Escape cancels the bot's cast, clears an old movement wait, and uses the existing
 FleePosition engine. It preserves its in-progress spline when its destination is
-outside the enclosing circle of currently overlapping hazards, retries failed/replacement paths at most twice per
+outside the enclosing circle or making measurable progress away from its center, retries failed/replacement paths at most twice per
 second, and blocks conflicting movement/spells while cached danger persists.
-New destinations inside that enclosing circle are stopped rather than left running.
+FleePosition takes steps limited by the configured FleeDistance, so partial outward
+steps are preserved and chained until clear; endpoints that neither exit nor make
+outward progress are stopped.
 Hazard release can lag up to 250 ms. Cast avoidance uses loaded radius plus three
 yards; ground avoidance uses loaded area radius and normal FleePosition clearance.
 Existing generic AvoidAoe behavior remains available for human-led groups. The
@@ -116,7 +118,8 @@ policies rather than claiming a global CC-safety rewrite.
 with engine doubles. It covers defaults/wiring, local runner/Blackguard priority,
 tank/healer/manual exemptions, late CC/range/LOS, runtime cast radii, targeted-DoT
 exclusion, ignored/oversized overlapping ground areas, post-combat floor danger,
-escape preemption/spline preservation/retry throttling and multiplier release.
+escape preemption/spline preservation/retry throttling, chained five-yard steps out of a wide area,
+rejection of no-progress endpoints and multiplier release.
 Module codestyle, touched encounter/fixture clang-format and whitespace checks are
 required. Doubles do not establish core ABI, cast legality, collision, latency or DPS.
 

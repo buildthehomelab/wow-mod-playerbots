@@ -6,11 +6,18 @@
 
 #include "DeadminesActions.h"
 
+#include <algorithm>
+
 #include "DeadminesShared.h"
 #include "LastMovementValue.h"
 #include "MoveSpline.h"
 #include "Playerbots.h"
 #include "Timer.h"
+
+namespace
+{
+constexpr float MIN_ESCAPE_PROGRESS = 0.1f;
+}
 
 Unit* DeadminesFocusAction::ValidatedTarget()
 {
@@ -42,11 +49,13 @@ bool DeadminesEscapeAction::Execute(Event /*event*/)
     Deadmines::Hazard const area = Deadmines::CollectHazard(botAI);
     if (!area.active)
         return false;
+    float const minimumDistance = std::min(
+        area.radius, area.center.GetExactDist2d(bot->GetPositionX(), bot->GetPositionY()) + MIN_ESCAPE_PROGRESS);
     if (_lastAttemptMs && bot->isMoving() && !bot->movespline->Finalized())
     {
         G3D::Vector3 const destination = bot->movespline->FinalDestination();
         if (_destination.GetExactDist(destination.x, destination.y, destination.z) < 0.5f &&
-            area.center.GetExactDist2d(destination.x, destination.y) > area.radius)
+            area.center.GetExactDist2d(destination.x, destination.y) > minimumDistance)
             return true;
     }
     uint32 const now = getMSTime();
@@ -58,7 +67,7 @@ bool DeadminesEscapeAction::Execute(Event /*event*/)
     if (!FleePosition(area.center, area.radius, 0))
         return false;
     G3D::Vector3 const destination = bot->movespline->FinalDestination();
-    if (area.center.GetExactDist2d(destination.x, destination.y) <= area.radius)
+    if (area.center.GetExactDist2d(destination.x, destination.y) <= minimumDistance)
     {
         bot->StopMoving();
         return false;
