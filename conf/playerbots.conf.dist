@@ -3250,3 +3250,7 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Nearby DPS prioritize actual Skum/Druid assist runners in Wailing Caverns.
+# Enable before instance strategy initialization; generic class AI is retained.
+Playerbots.EnableWailingCavernsMechanics = 0

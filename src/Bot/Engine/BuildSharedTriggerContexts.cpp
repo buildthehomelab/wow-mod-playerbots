@@ -5,6 +5,7 @@
  */
 
 #include "AiObjectContext.h"
+#include "WailingCavernsContexts.h"
 #include "Aq20TriggerContext.h"
 #include "BTTriggerContext.h"
 #include "BWLTriggerContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedTriggerContexts(
     SharedNamedObjectContextList<Trigger>& triggerContexts)
 {
+    triggerContexts.Add(new WailingCavernsTriggerContext());
     triggerContexts.Add(new TriggerContext());
     triggerContexts.Add(new ChatTriggerContext());
     triggerContexts.Add(new WorldPacketTriggerContext());

@@ -5,6 +5,7 @@
  */
 
 #include "AiObjectContext.h"
+#include "WailingCavernsContexts.h"
 #include "GDValueContext.h"
 #include "GruulValueContext.h"
 #include "HyjalValueContext.h"
@@ -20,6 +21,7 @@
 void AiObjectContext::BuildSharedValueContexts(
     SharedNamedObjectContextList<UntypedValue>& valueContexts)
 {
+    valueContexts.Add(new WailingCavernsValueContext());
     valueContexts.Add(new ValueContext());
     valueContexts.Add(new RaidGruulsLairValueContext());
     valueContexts.Add(new RaidHyjalValueContext());

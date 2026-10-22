@@ -6,6 +6,7 @@
 
 #include "ActionContext.h"
 #include "AiObjectContext.h"
+#include "WailingCavernsContexts.h"
 #include "Aq20ActionContext.h"
 #include "BTActionContext.h"
 #include "BWLActionContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
+    actionContexts.Add(new WailingCavernsActionContext());
     actionContexts.Add(new ActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());
