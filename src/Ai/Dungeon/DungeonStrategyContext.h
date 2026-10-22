@@ -24,6 +24,7 @@
 #include "RampStrategy.h"
 #include "SethStrategy.h"
 #include "SMStrategy.h"
+#include "RagefireStrategy.h"
 #include "Strategy.h"
 #include "TOCStrategy.h"
 #include "UBStrategy.h"
@@ -37,6 +38,7 @@ public:
     DungeonStrategyContext() : NamedObjectContext<Strategy>(false, true)
     {
         // Vanilla
+        creators["vanilla-ragefire"] = &DungeonStrategyContext::ragefire;
         creators["vanilla-sm"] = &DungeonStrategyContext::vanilla_sm;   // Scarlet Monastery
 
         // Burning Crusade
@@ -66,6 +68,7 @@ public:
     }
 
 private:
+    static Strategy* ragefire(PlayerbotAI* botAI) { return new RagefireStrategy(botAI); }
     static Strategy* vanilla_sm(PlayerbotAI* botAI) { return new VanillaDungeonScarletMonasteryStrategy(botAI); }
     static Strategy* tbc_ac(PlayerbotAI* botAI) { return new TbcDungeonAuchenaiCryptsStrategy(botAI); }
     static Strategy* tbc_seth(PlayerbotAI* botAI) { return new TbcDungeonSethekkHallsStrategy(botAI); }
