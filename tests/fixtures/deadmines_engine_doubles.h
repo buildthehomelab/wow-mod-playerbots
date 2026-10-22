@@ -353,6 +353,8 @@ public:
     Context context{this};
     std::map<ObjectGuid, Unit*> units;
     LastMovement movement;
+    bool canMove = true;
+    bool CanMove() { return canMove; }
     bool canCast = true, castSucceeds = true, moveBlocked = false;
     uint32 castId = 0;
     Unit* castTarget = nullptr;
@@ -453,6 +455,10 @@ struct CastSpellAction : Action
     std::string spell;
     CastSpellAction(PlayerbotAI* a, std::string s) : Action(a, s), spell(s) {}
     std::string getSpell() { return spell; }
+};
+struct CastEscapeArtistAction : CastSpellAction
+{
+    explicit CastEscapeArtistAction(PlayerbotAI* ai) : CastSpellAction(ai, "escape artist") {}
 };
 struct CastReachTargetSpellAction : CastSpellAction
 {

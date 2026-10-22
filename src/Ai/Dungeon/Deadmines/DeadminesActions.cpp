@@ -42,12 +42,12 @@ bool DeadminesFocusAction::Execute(Event /*event*/)
     return target && Attack(target);
 }
 
-bool DeadminesEscapeAction::isUseful() { return Deadmines::InHazard(botAI); }
+bool DeadminesEscapeAction::isUseful() { return botAI->CanMove() && Deadmines::InHazard(botAI); }
 
 bool DeadminesEscapeAction::Execute(Event /*event*/)
 {
     Deadmines::Hazard const area = Deadmines::CollectHazard(botAI);
-    if (!area.active)
+    if (!area.active || !botAI->CanMove())
         return false;
     float const minimumDistance = std::min(
         area.radius, area.center.GetExactDist2d(bot->GetPositionX(), bot->GetPositionY()) + MIN_ESCAPE_PROGRESS);

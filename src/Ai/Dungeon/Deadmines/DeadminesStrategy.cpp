@@ -22,6 +22,8 @@ public:
     {
         if (dynamic_cast<DeadminesEscapeAction*>(action))
             return 1.0f;
+        if (dynamic_cast<CastSpellAction*>(action) && !botAI->CanMove())
+            return 1.0f;
         if (!dynamic_cast<MovementAction*>(action) && !dynamic_cast<CastSpellAction*>(action))
             return 1.0f;
         return Deadmines::InHazard(botAI) ? 0.0f : 1.0f;

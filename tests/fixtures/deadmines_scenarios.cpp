@@ -156,6 +156,16 @@ int main()
     assert(multipliers[0]->GetValue(&approach) == 0);
     assert(multipliers[0]->GetValue(&heal) == 0);
     assert(multipliers[0]->GetValue(&escape) == 1);
+    CastEscapeArtistAction escapeArtist(&ai);
+    ai.canMove = false;
+    int castStopsBeforeRoot = bot.castStops;
+    assert(!escape.isUseful() && !escape.Execute({}));
+    assert(bot.castStops == castStopsBeforeRoot);
+    assert(multipliers[0]->GetValue(&escapeArtist) == 1);
+    assert(multipliers[0]->GetValue(&heal) == 1);
+    assert(multipliers[0]->GetValue(&approach) == 0);
+    ai.canMove = true;
+    assert(escape.isUseful() && multipliers[0]->GetValue(&heal) == 0);
     harmful.expired = true;
     assert(!escape.Execute({}));
     clockNow += 250;

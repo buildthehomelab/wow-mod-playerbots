@@ -63,6 +63,9 @@ Escape cancels the bot's cast, clears an old movement wait, and uses the existin
 FleePosition engine. It preserves its in-progress spline when its destination is
 outside the enclosing circle or making measurable progress away from its center, retries failed/replacement paths at most twice per
 second, and blocks conflicting movement/spells while cached danger persists.
+When movement is blocked (including roots), the escape action defers without
+canceling casts and generic spells remain available for Escape Artist, dispels,
+healing and other existing recovery behavior. It resumes avoidance after recovery.
 FleePosition takes steps limited by the configured FleeDistance, so partial outward
 steps are preserved and chained until clear; endpoints that neither exit nor make
 outward progress are stopped.
@@ -119,7 +122,7 @@ with engine doubles. It covers defaults/wiring, local runner/Blackguard priority
 tank/healer/manual exemptions, late CC/range/LOS, runtime cast radii, targeted-DoT
 exclusion, ignored/oversized overlapping ground areas, post-combat floor danger,
 escape preemption/spline preservation/retry throttling, chained five-yard steps out of a wide area,
-rejection of no-progress endpoints and multiplier release.
+rejection of no-progress endpoints, rooted-bot recovery casts and multiplier release.
 Module codestyle, touched encounter/fixture clang-format and whitespace checks are
 required. Doubles do not establish core ABI, cast legality, collision, latency or DPS.
 
