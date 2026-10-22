@@ -13,6 +13,7 @@ class Player;
 
 #include "Common.h"
 #include "ObjectGuid.h"
+#include "Position.h"
 #include "Unit.h"
 
 class PlayerbotAI;
@@ -46,6 +47,13 @@ bool IsHazardActive(Unit* boss, Encounter encounter);
 float SafeDistance(Encounter encounter);
 EncounterTargets CollectEncounterTargets(PlayerbotAI* botAI);
 Unit* GetEncounterTarget(PlayerbotAI* botAI, Encounter encounter);
+struct GroundArea
+{
+    bool active = false;
+    Position center;
+    float radius = 0.0f;
+};
+GroundArea CollectGroundArea(PlayerbotAI* botAI);
 bool IsInGroundDamage(PlayerbotAI* botAI);
 bool CanFocusTarget(PlayerbotAI* botAI, Unit* target);
 ObjectGuid FindFocusTarget(PlayerbotAI* botAI);

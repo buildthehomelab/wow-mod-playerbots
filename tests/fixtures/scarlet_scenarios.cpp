@@ -234,6 +234,8 @@ int main()
     ground.radius = 5;
     Aura groundAura;
     groundAura.area = &ground;
+    AuraEffect groundEffect{&groundAura};
+    bot.effects[SPELL_AURA_PERIODIC_DAMAGE] = {&groundEffect};
     context->GetValue<Aura*>("area debuff")->Set(&groundAura);
     bot.x = 3;
     bot.moving = false;
@@ -253,19 +255,43 @@ int main()
     assert(groundMultiplier.GetValue(&groundEscape) == 1 && groundMultiplier.GetValue(&heal) == 0 &&
            groundMultiplier.GetValue(&chase) == 0);
     groundAura.removed = true;
-    assert(!IsInGroundDamage(&ai));
+    assert(!CollectGroundArea(&ai).active);
     groundAura.removed = false;
     sPlayerbotAIConfig.AoeAvoidSpellWhitelist.insert(8422);
-    assert(!IsInGroundDamage(&ai));
+    assert(!CollectGroundArea(&ai).active);
     sPlayerbotAIConfig.AoeAvoidSpellWhitelist.clear();
+    Aura ignoredAura;
+    DynamicObject ignoredArea;
+    ignoredAura.area = &ignoredArea;
+    ignoredArea.radius = 100;
+    AuraEffect ignoredEffect{&ignoredAura};
+    bot.effects[SPELL_AURA_PERIODIC_DAMAGE] = {&ignoredEffect, &groundEffect};
+    clockNow += 600;
+    assert(IsInGroundDamage(&ai));
+    assert(CollectGroundArea(&ai).radius == 5);
+    ignoredArea.radius = 5;
+    ignoredAura.info.Id = 999;
+    sPlayerbotAIConfig.AoeAvoidSpellWhitelist.insert(999);
+    clockNow += 600;
+    assert(IsInGroundDamage(&ai));
+    assert(CollectGroundArea(&ai).active);
+    context->GetValue<Aura*>("area debuff")->Set(&ignoredAura);
+    bot.moving = false;
+    bot.spline.done = true;
+    clockNow += 1200;
+    assert(groundEscape.Execute({}));
+    assert(bot.spline.destination.x == 7);
+    sPlayerbotAIConfig.AoeAvoidSpellWhitelist.clear();
+    bot.effects[SPELL_AURA_PERIODIC_DAMAGE] = {&groundEffect};
     ground.radius = 100;
-    assert(!IsInGroundDamage(&ai));
+    assert(!CollectGroundArea(&ai).active);
     ground.radius = 5;
     bot.x = 8;
     clockNow += 600;
     assert(!groundTrigger.IsActive());
     assert(groundMultiplier.GetValue(&chase) == 1);
     context->GetValue<Aura*>("area debuff")->Set(nullptr);
+    bot.effects.clear();
     VanillaDungeonScarletMonasteryStrategy strategy(&ai);
     auto checkConfig = [&](bool legacy, bool full, size_t triggerCount, size_t multiplierCount)
     {

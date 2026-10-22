@@ -90,10 +90,10 @@ public:
     bool Execute(Event event) override;
 };
 
-class ScarletGroundEscapeAction : public AvoidAoeAction
+class ScarletGroundEscapeAction : public MovementAction
 {
 public:
-    ScarletGroundEscapeAction(PlayerbotAI* botAI) : AvoidAoeAction(botAI) {}
+    ScarletGroundEscapeAction(PlayerbotAI* botAI) : MovementAction(botAI, "scarlet ground damage") {}
     std::string const getName() override { return "scarlet ground damage"; }
     bool isUseful() override;
     bool Execute(Event event) override;

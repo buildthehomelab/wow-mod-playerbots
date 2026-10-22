@@ -13,6 +13,7 @@
 #include "PlayerbotAIConfig.h"
 #include "Playerbots.h"
 #include "Spell.h"
+#include "SpellAuraEffects.h"
 #include "SpellAuras.h"
 #include "SpellInfo.h"
 #include "SpellMgr.h"
@@ -142,19 +143,36 @@ Unit* GetEncounterTarget(PlayerbotAI* botAI, Encounter encounter)
     return target && target->IsAlive() && target->GetMapId() == SM_MAP_ID ? target : nullptr;
 }
 
-bool IsInGroundDamage(PlayerbotAI* botAI)
+GroundArea CollectGroundArea(PlayerbotAI* botAI)
 {
     Player* bot = botAI->GetBot();
     if (bot->GetMapId() != SM_MAP_ID)
-        return false;
-    Aura* aura = botAI->GetAiObjectContext()->GetValue<Aura*>("area debuff")->Get();
-    if (!aura || aura->IsRemoved() || aura->IsExpired() || aura->GetType() != DYNOBJ_AURA_TYPE)
-        return false;
-    if (sPlayerbotAIConfig.AoeAvoidSpellWhitelist.contains(aura->GetSpellInfo()->Id))
-        return false;
-    DynamicObject* area = aura->GetDynobjOwner();
-    return area && area->IsInWorld() && area->GetRadius() > 0.0f &&
-           area->GetRadius() <= sPlayerbotAIConfig.MaxAoeAvoidRadius && bot->GetDistance(area) <= area->GetRadius();
+        return {};
+    for (AuraType type :
+         {SPELL_AURA_PERIODIC_DAMAGE, SPELL_AURA_PERIODIC_DAMAGE_PERCENT, SPELL_AURA_PERIODIC_TRIGGER_SPELL,
+          SPELL_AURA_PERIODIC_TRIGGER_SPELL_WITH_VALUE, SPELL_AURA_DUMMY})
+    {
+        for (AuraEffect* effect : bot->GetAuraEffectsByType(type))
+        {
+            Aura* aura = effect ? effect->GetBase() : nullptr;
+            if (!aura || aura->IsRemoved() || aura->IsExpired() || aura->GetType() != DYNOBJ_AURA_TYPE ||
+                aura->GetSpellInfo()->IsPositive() ||
+                sPlayerbotAIConfig.AoeAvoidSpellWhitelist.contains(aura->GetSpellInfo()->Id))
+                continue;
+            DynamicObject* area = aura->GetDynobjOwner();
+            if (!area || !area->IsInWorld() || area->GetRadius() <= 0.0f ||
+                area->GetRadius() > sPlayerbotAIConfig.MaxAoeAvoidRadius || bot->GetDistance(area) > area->GetRadius())
+                continue;
+            return {true, area->GetPosition(), area->GetRadius()};
+        }
+    }
+    return {};
+}
+
+bool IsInGroundDamage(PlayerbotAI* botAI)
+{
+    return botAI->GetBot()->GetMapId() == SM_MAP_ID &&
+           botAI->GetAiObjectContext()->GetValue<GroundArea>("scarlet ground damage")->Get().active;
 }
 
 bool CanFocusTarget(PlayerbotAI* botAI, Unit* target) { return ScarletFocusStrategy(botAI).Eligible(target); }

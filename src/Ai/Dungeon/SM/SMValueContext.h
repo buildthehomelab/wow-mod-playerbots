@@ -56,16 +56,16 @@ protected:
     GuidVector Calculate() override { return SMShared::CharmedPartyMembers(botAI); }
 };
 
-class ScarletGroundDamageValue : public BoolCalculatedValue
+class ScarletGroundDamageValue : public CalculatedValue<SMShared::GroundArea>
 {
 public:
     ScarletGroundDamageValue(PlayerbotAI* botAI)
-        : BoolCalculatedValue(botAI, "scarlet ground damage", SMShared::TARGET_CACHE_MS)
+        : CalculatedValue<SMShared::GroundArea>(botAI, "scarlet ground damage", SMShared::TARGET_CACHE_MS)
     {
     }
 
 protected:
-    bool Calculate() override { return SMShared::IsInGroundDamage(botAI); }
+    SMShared::GroundArea Calculate() override { return SMShared::CollectGroundArea(botAI); }
 };
 
 class VanillaDungeonScarletMonasteryValueContext : public NamedObjectContext<UntypedValue>

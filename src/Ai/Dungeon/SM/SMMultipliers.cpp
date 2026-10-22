@@ -63,10 +63,11 @@ float ScarletCharmSafetyMultiplier::GetValue(Action* action)
 
 float ScarletGroundDamageMultiplier::GetValue(Action* action)
 {
-    if (dynamic_cast<ScarletAvoidanceAction*>(action) || dynamic_cast<AvoidAoeAction*>(action))
+    if (dynamic_cast<ScarletAvoidanceAction*>(action) || dynamic_cast<ScarletGroundEscapeAction*>(action) ||
+        dynamic_cast<AvoidAoeAction*>(action))
         return 1.0f;
     if (!dynamic_cast<MovementAction*>(action) && !dynamic_cast<CastReachTargetSpellAction*>(action) &&
         !dynamic_cast<CastSpellAction*>(action) && !dynamic_cast<ScarletDispelDominateAction*>(action))
         return 1.0f;
-    return AI_VALUE(bool, "scarlet ground damage") ? 0.0f : 1.0f;
+    return IsInGroundDamage(botAI) ? 0.0f : 1.0f;
 }

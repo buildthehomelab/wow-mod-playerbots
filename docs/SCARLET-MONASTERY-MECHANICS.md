@@ -16,6 +16,8 @@ A shared 250 ms GUID cache scans the bot's threat references once for all four
 hazards, rather than rescanning Unicode names per trigger/multiplier. Focus selection
 runs at most every 500 ms from the existing attacker cache. Charm and harmful floor
 state use 250 ms caches. Live aura/channel/validity checks release behavior promptly.
+Ground detection scans until the first actionable negative dynamic area, so an
+ignored overlapping aura cannot mask it; the escape uses the selected geometry.
 Cached targets store GUIDs, not raw pointers. Action execution revalidates targets.
 No synchronous queries, new dialogue, SQL, DBC or addon changes are introduced.
 When the full switch is off, the additional focus/charm/floor triggers and multipliers
@@ -62,7 +64,7 @@ explicit; it is not an exhaustive resolver of every spell-created summon.
 - **Protectors, Adepts, Chaplains and Abbots:** new deterministic nearby DPS healer
   focus, with Whitemane taking precedence. Existing interrupts and purges remain.
 - **Evokers, Sorcerers, Diviners, Conjurors and Wizards:** existing cast interrupts;
-  new opt-in invocation of the existing harmful dynamic-area avoidance also works
+  new opt-in harmful dynamic-area detection and existing flee-position movement also work
   for autonomous groups. The core Sorcerer's row labelled “Blizzard” currently casts
   spell 9672, also used by its Frostbolt row. Labels alone do not establish a Blizzard
   hazard; this pass does not alter core encounter data.
@@ -89,7 +91,7 @@ It checks shared cache refresh, active cast/aura/death/map boundaries, an existi
 movement wait, preserving a running spline, retry throttling, all four hazard
 families, healer ordering, late CC marks/range/LOS changes, tank/healer/manual-order
 exemptions, charm eligibility, ongoing bot/pet casts, attack cancellation, dispel
-exemption, AoE suppression/release, harmful floor avoidance, both configuration
+exemption, AoE suppression/release, harmful floor avoidance including oversized/whitelisted overlapping auras, both configuration
 switches and every trigger-to-action creator. The older Herod test entry point
 runs the same expanded scenarios. These doubles do not validate core ABI,
 Spell::CheckCast, threat propagation, collision/pathfinding, DPS or latency.

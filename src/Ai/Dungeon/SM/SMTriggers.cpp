@@ -35,7 +35,4 @@ bool ScarletProtectAllyTrigger::IsActive()
            (pet && IsDominatedPartyMember(bot, pet->GetVictim()));
 }
 
-bool ScarletGroundDamageTrigger::IsActive()
-{
-    return bot->GetMapId() == SM_MAP_ID && AI_VALUE(bool, "scarlet ground damage");
-}
+bool ScarletGroundDamageTrigger::IsActive() { return bot->GetMapId() == SM_MAP_ID && IsInGroundDamage(botAI); }

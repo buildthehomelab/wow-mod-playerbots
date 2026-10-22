@@ -116,14 +116,12 @@ bool ScarletProtectAllyAction::Execute(Event /*event*/)
     return changed;
 }
 
-bool ScarletGroundEscapeAction::isUseful()
-{
-    return bot->GetMapId() == SM_MAP_ID && AI_VALUE(bool, "scarlet ground damage");
-}
+bool ScarletGroundEscapeAction::isUseful() { return bot->GetMapId() == SM_MAP_ID && IsInGroundDamage(botAI); }
 
 bool ScarletGroundEscapeAction::Execute(Event /*event*/)
 {
-    if (!IsInGroundDamage(botAI))
+    GroundArea const area = CollectGroundArea(botAI);
+    if (!area.active)
         return false;
     if (_lastAttemptMs && bot->isMoving() && !bot->movespline->Finalized())
     {
@@ -137,7 +135,7 @@ bool ScarletGroundEscapeAction::Execute(Event /*event*/)
     _lastAttemptMs = now;
     bot->CastStop();
     AI_VALUE(LastMovement&, "last movement").clear();
-    if (!AvoidAuraWithDynamicObj())
+    if (!FleePosition(area.center, area.radius))
         return false;
     G3D::Vector3 const destination = bot->movespline->FinalDestination();
     _destination.Relocate(destination.x, destination.y, destination.z);

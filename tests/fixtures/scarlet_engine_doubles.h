@@ -72,6 +72,7 @@ struct DynamicObject : Position
 {
     bool world = true;
     float radius = 5;
+    Position const& GetPosition() { return *this; }
     bool IsInWorld() { return world; }
     float GetRadius() { return radius; }
 };
@@ -90,6 +91,19 @@ struct Aura
     SpellInfo const* GetSpellInfo() { return &info; }
     DynamicObject* GetDynobjOwner() { return area; }
 } charmAura;
+enum AuraType
+{
+    SPELL_AURA_PERIODIC_DAMAGE,
+    SPELL_AURA_PERIODIC_DAMAGE_PERCENT,
+    SPELL_AURA_PERIODIC_TRIGGER_SPELL,
+    SPELL_AURA_PERIODIC_TRIGGER_SPELL_WITH_VALUE,
+    SPELL_AURA_DUMMY
+};
+struct AuraEffect
+{
+    Aura* aura;
+    Aura* GetBase() { return aura; }
+};
 using DispelChargesList = std::vector<std::pair<Aura*, uint8>>;
 constexpr int DISPEL_MAGIC = 1, REACT_PASSIVE = 0, REACT_AGGRESSIVE = 2;
 enum CurrentSpellTypes
@@ -136,6 +150,8 @@ struct Unit : Position
          markedCc = false, dispelEligible = true;
     int reaction = REACT_AGGRESSIVE;
     std::set<uint32> auras, casts;
+    std::map<AuraType, std::vector<AuraEffect*>> effects;
+    auto const& GetAuraEffectsByType(AuraType type) { return effects[type]; }
     ThreatManager threat;
     Unit* victim = nullptr;
     Spell* currentSpell[2] = {};
@@ -348,6 +364,13 @@ struct Action
 struct MovementAction : Action
 {
     using Action::Action;
+    bool FleePosition(Position pos, float radius)
+    {
+        Unit center;
+        center.x = pos.x;
+        center.y = pos.y;
+        return MoveAway(&center, radius + 2 - bot->GetExactDist2d(&center));
+    }
     bool MoveAway(Unit* u, float distance)
     {
         if (botAI->movement.waiting || botAI->moveBlocked)
