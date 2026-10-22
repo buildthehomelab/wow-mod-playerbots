@@ -81,7 +81,12 @@ movement after selection; this is not a global chase leash or snare replacement.
 Escape is below interrupt relevance and above ordinary movement. Competing
 movement/target switches are suppressed; all generic spell priorities remain,
 including interrupts, dispels and emergency healing. Roots/control defer before
-CastStop. Outward escape splines are preserved; capped FleeDistance steps chain,
+CastStop. Existing melee/ranged flee planners choose a progressing endpoint;
+MoveTo uses forced movement priority to bypass a stale lower-priority wait without
+clearing movement state. CastStop runs only after a successful progressing launch,
+so collision/planner/path failures preserve useful casts. Cast-blocked accepted
+PointMovement requests clear the cast gate and let the core launch next update,
+without inspecting an old spline. Outward escape splines are preserved; capped FleeDistance steps chain,
 nonprogressing endpoints stop, failed requests throttle to 500 ms. Short Nova
 casts may finish before escape; higher generic responses may delay escape. Pets
 have no new dedicated hazard recall. Existing route pathfinding governs lava.
@@ -91,7 +96,7 @@ have no new dedicated hazard recall. Existing route pathfinding governs lava.
 python3 tests/test_ragefire.py compiles/executes actual encounter sources against
 engine doubles: switch/map gates, creator wiring, role/manual/CC exclusions,
 late range/LOS/CC, runner start/stop, cast ID/radius/end, interrupt/spell priority
-preservation, root recovery, failed-path throttle, spline preservation and three
+preservation, root recovery, failed-path cast/state preservation, deferred-cast launch, retry throttle, spline preservation and three
 chained five-yard steps from a twelve-yard objective. Doubles do not certify ABI,
 cast legality, collision or gameplay. Codestyle, encounter/fixture clang-format,
 whitespace and wiring checks are required; reviews are tracked on the PR.

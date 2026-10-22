@@ -8,7 +8,6 @@
 
 #include <algorithm>
 
-#include "LastMovementValue.h"
 #include "MoveSpline.h"
 #include "Playerbots.h"
 #include "RagefireShared.h"
@@ -62,16 +61,29 @@ bool RagefireEscapeAction::Execute(Event /*event*/)
     if (_lastAttemptMs && getMSTimeDiff(_lastAttemptMs, now) < 500)
         return false;
     _lastAttemptMs = now;
-    bot->CastStop();
-    AI_VALUE(LastMovement&, "last movement").clear();
-    if (!FleePosition(area.center, area.radius, 0))
+    Position const planned = PlayerbotAI::IsMelee(bot) ? BestPositionForMeleeToFlee(area.center, area.radius)
+                                                       : BestPositionForRangedToFlee(area.center, area.radius);
+    if (planned == Position() ||
+        area.center.GetExactDist2d(planned.GetPositionX(), planned.GetPositionY()) <= minimumDistance)
         return false;
+    bool const castDefersMovement = bot->IsMovementPreventedByCasting();
+    if (!MoveTo(bot->GetMapId(), planned.GetPositionX(), planned.GetPositionY(), planned.GetPositionZ(), false, false,
+                true, false, MovementPriority::MOVEMENT_FORCED))
+        return false;
+    if (castDefersMovement)
+    {
+        // PointMovementGenerator launches the accepted path after the cast gate clears.
+        bot->CastStop();
+        _destination = planned;
+        return true;
+    }
     G3D::Vector3 const destination = bot->movespline->FinalDestination();
     if (area.center.GetExactDist2d(destination.x, destination.y) <= minimumDistance)
     {
         bot->StopMoving();
         return false;
     }
+    bot->CastStop();
     _destination.Relocate(destination.x, destination.y, destination.z);
     return true;
 }

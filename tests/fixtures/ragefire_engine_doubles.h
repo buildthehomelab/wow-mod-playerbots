@@ -27,6 +27,7 @@ using GuidVector = std::vector<ObjectGuid>;
 using GuidSet = std::set<ObjectGuid>;
 struct Position
 {
+    bool operator==(Position const&) const = default;
     float x = 0, y = 0, z = 0;
     void Relocate(float a, float b, float c)
     {
@@ -226,6 +227,19 @@ class Player : public Unit
 {
 public:
     bool tank = false, heal = false, ranged = false, moving = false;
+    bool movementCast = false, deferredMove = false;
+    G3D::Vector3 deferredDestination;
+    bool IsMovementPreventedByCasting() { return movementCast; }
+    void MovementUpdate()
+    {
+        if (deferredMove && !movementCast)
+        {
+            moving = true;
+            spline.done = false;
+            spline.destination = deferredDestination;
+            deferredMove = false;
+        }
+    }
     Spline spline;
     Spline* movespline = &spline;
     Pet* pet = nullptr;
@@ -247,7 +261,11 @@ public:
         moving = false;
         spline.done = true;
     }
-    void CastStop() { ++castStops; }
+    void CastStop()
+    {
+        ++castStops;
+        movementCast = false;
+    }
     void AttackStop()
     {
         ++attackStops;
@@ -354,7 +372,7 @@ public:
     LastMovement movement;
     bool canMove = true;
     bool CanMove() { return canMove; }
-    bool canCast = true, castSucceeds = true, moveBlocked = false;
+    bool canCast = true, castSucceeds = true, moveBlocked = false, pathRejected = false;
     uint32 castId = 0;
     Unit* castTarget = nullptr;
     int moves = 0;
@@ -371,6 +389,7 @@ public:
     static bool IsTank(Player* p) { return p->tank; }
     static bool IsHeal(Player* p) { return p->heal; }
     static bool IsRanged(Player* p) { return p->ranged; }
+    static bool IsMelee(Player* p) { return !p->ranged; }
     bool CanCastSpell(uint32 id, Unit*) { return id && canCast; }
     bool CastSpell(uint32 id, Unit* t)
     {
@@ -397,9 +416,43 @@ struct Action
     virtual bool Execute(Event) { return true; }
     virtual Unit* GetTarget() { return context->GetValue<Unit*>("current target")->Get(); }
 };
+enum class MovementPriority
+{
+    MOVEMENT_NORMAL,
+    MOVEMENT_FORCED
+};
 struct MovementAction : Action
 {
     using Action::Action;
+    Position BestPositionForMeleeToFlee(Position pos, float radius)
+    {
+        if (botAI->moveBlocked)
+            return {};
+        float distance = std::min(radius + 1.0f, botAI->fleeDistance);
+        float angle = std::atan2(bot->y - pos.y, bot->x - pos.x);
+        Position result;
+        result.Relocate(bot->x + std::cos(angle) * distance, bot->y + std::sin(angle) * distance, bot->z);
+        return result;
+    }
+    Position BestPositionForRangedToFlee(Position pos, float radius) { return BestPositionForMeleeToFlee(pos, radius); }
+    bool MoveTo(uint32, float x, float y, float z, bool, bool, bool, bool, MovementPriority priority)
+    {
+        if (botAI->pathRejected || (botAI->movement.waiting && priority != MovementPriority::MOVEMENT_FORCED))
+            return false;
+        ++botAI->moves;
+        if (bot->IsMovementPreventedByCasting())
+        {
+            bot->deferredMove = true;
+            bot->deferredDestination = {x, y, z};
+            botAI->movement.waiting = true;
+            return true;
+        }
+        bot->moving = true;
+        bot->spline.done = false;
+        bot->spline.destination = {x, y, z};
+        botAI->movement.waiting = true;
+        return true;
+    }
     bool FleePosition(Position pos, float radius, uint32 = 1000)
     {
         Unit center;
