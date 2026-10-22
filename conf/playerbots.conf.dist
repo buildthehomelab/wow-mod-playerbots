@@ -3253,3 +3253,7 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Focus nearby Stockade assist runners with DPS bots; retain generic class spell decisions.
+# Disabled by default. Tanks, healers, marked CC and explicit target priorities are preserved.
+Playerbots.EnableStockadeMechanics = 0
