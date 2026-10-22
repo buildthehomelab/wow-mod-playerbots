@@ -12,6 +12,7 @@
 #include "ANStrategy.h"
 #include "CoSStrategy.h"
 #include "DTKStrategy.h"
+#include "DeadminesStrategy.h"
 #include "FoSStrategy.h"
 #include "GDStrategy.h"
 #include "HoLStrategy.h"
@@ -37,6 +38,7 @@ public:
     DungeonStrategyContext() : NamedObjectContext<Strategy>(false, true)
     {
         // Vanilla
+        creators["vanilla-deadmines"] = &DungeonStrategyContext::deadmines;
         creators["vanilla-sm"] = &DungeonStrategyContext::vanilla_sm;   // Scarlet Monastery
 
         // Burning Crusade
@@ -66,6 +68,7 @@ public:
     }
 
 private:
+    static Strategy* deadmines(PlayerbotAI* botAI) { return new DeadminesStrategy(botAI); }
     static Strategy* vanilla_sm(PlayerbotAI* botAI) { return new VanillaDungeonScarletMonasteryStrategy(botAI); }
     static Strategy* tbc_ac(PlayerbotAI* botAI) { return new TbcDungeonAuchenaiCryptsStrategy(botAI); }
     static Strategy* tbc_seth(PlayerbotAI* botAI) { return new TbcDungeonSethekkHallsStrategy(botAI); }

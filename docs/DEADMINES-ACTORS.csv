@@ -1,0 +1,27 @@
+entry,name,fixed_spawns,base_spell_ids,effective_ip_spell_ids,source_behaviors
+598,Defias Miner,46,6016,6016,Defias Miner - Within 0-5 Range - Cast Pierce Armor | Defias Miner - Between 0-15% Health - Flee For Assist
+622,Goblin Engineer,6,3605;6660,3605;6660,Goblin Engineer - Outside 30 Range - Start Combat Movement | Goblin Engineer - Within 5-30 Range - Stop Combat Movement | Goblin Engineer - Within 0-5 Range - Start Combat Movement | Goblin Engineer - Within Range 5-30yd - Cast Shoot | Goblin Engineer - Out of Combat - Cast Summon Remote-Controlled Golem | Goblin Engineer - Between 0-15% Health - Flee For Assist
+634,Defias Overseer,12,6016,5115,Defias Overseer - In Combat - Cast Battle Command | Defias Overseer - Between 0-15% Health - Flee For Assist
+636,Defias Blackguard,4,1833;6408;14903,1833;6408;14903,Defias Blackguard - Out of Combat - Cast Faded | Defias Blackguard - On Aggro - Cast Cheap Shot | Defias Blackguard - On Aggro - Remove Aura Faded | Defias Blackguard - On Aggro - Say Line 0 | Defias Blackguard - In Combat - Cast Rupture
+639,Edwin VanCleef,1,674;5200,674;3391;5200,Edwin VanCleef - Out of Combat - Cast Dual Wield (No Repeat) | Edwin VanCleef - On Aggro - Say Line 0 | Edwin VanCleef - Between 50-75% Health - Say Line 1 (No Repeat) | Edwin VanCleef - At 50% Health - Cast VanCleefs Allies (No Repeat) | Edwin VanCleef - On Summon Allies - Say Line 2 | Edwin VanCleef - Between 0-35% Health - Say Line 3 (No Repeat) | Edwin VanCleef - Between 0-10% Health - Say Line 5 (No Repeat) | Edwin VanCleef - On Killed Unit - Say Line 4 | Edwin VanCleef - In Combat - Cast Thrash
+641,Goblin Woodcarver,13,6466;40505,6466;40505,Goblin Woodcarver - Within 0-20 Range - Cast Axe Toss (No Repeat) | Goblin Woodcarver - Within 0-5 Range - Cast Cleave
+642,Sneed's Shredder,1,3603;5141;7399,3603;5141;7399,Sneeds Shredder - In Combat - Cast Terrify | Sneeds Shredder - Within 0-5 Range - Cast Distracting Pain | Sneeds Shredder - On Just Died - Cast Eject Sneed
+643,Sneed,0,6713,6713,Sneed - In Combat - Cast Disarm | Sneed - Open Door on Death
+644,Rhahk'Zor,1,6304,6304,Rhahk Zor - On Aggro - Say Line 0 | Rhahk Zor - Within 0-5 Range - Cast Rhahk Zor Slam | Rhahk Zor - On Just Died - Activate Gameobject (Normal Dungeon) | Rhahk Zor - On Just Died - Set Instance Data 0 to 3 (Normal Dungeon)
+645,Cookie,1,5174;6306,5174;6306,Cookie - In Combat - Cast Acid Splash | Cookie - In Combat - Cast Cookies Cooking | Cookie - Between 0-15% Health - Flee For Assist
+646,Mr. Smite,1,,,
+647,Captain Greenskin,1,5208;40505,5208;40505,Captain Greenskin - Within 0-5 Range - Cast Cleave | Captain Greenskin - Within 0-10 Range - Cast Poisoned Harpoon
+657,Defias Pirate,21,5172,5172,Defias Pirate - Out of Combat - Cast Bloodsail Companion (No Repeat)
+1725,Defias Watchman,2,6660,6660,Defias Watchman - Outside 30 Range - Start Combat Movement | Defias Watchman - Within 5-30 Range - Stop Combat Movement | Defias Watchman - Within 0-5 Range - Start Combat Movement | Defias Watchman - Within Range 5-30yd - Cast Shoot | Defias Watchman - Between 0-15% Health - Flee For Assist
+1729,Defias Evoker,10,4979;11829;12544,4979;11829;12544,Defias Evoker - Out of Combat - Cast Frost Armor | Defias Evoker - In Combat - Cast Flamestrike | Defias Evoker - In Combat - Cast Quick Flame Ward | Defias Evoker - Between 0-15% Health - Flee For Assist (No Repeat)
+1731,Goblin Craftsman,13,5159,5159,Goblin Craftsman - Within 0-5 Range - Cast Melt Ore | Goblin Craftsman - Between 0-15% Health - Flee For Assist (No Repeat)
+1732,Defias Squallshaper,19,2138;4979;12544,2138;4979;12544,Defias Squallshaper - Out of Combat - Cast Frost Armor | Defias Squallshaper - Within 0-20 Range - Cast Fire Blast | Defias Squallshaper - Within 0-8 Range - Cast Frost Nova | Defias Squallshaper - Between 0-15% Health - Flee For Assist (No Repeat) | Defias Squallshaper - Is Summoned - Move Point
+1763,Gilnid,1,5213,5213,Gilnid - Within 0-5 Range - Cast Molten Metal | Gilnid - Out of Combat - Say Line 0 | Gilnid - On Just Died - Activate Gameobject
+2520,Remote-Controlled Golem,0,,,
+3450,Defias Companion,0,,,
+3586,Miner Johnson,1,12097,12097,Miner Johnson - On AI Init - Despawn (Normal Dungeon) | Miner Johnson - Within 0-5 Range - Cast Pierce Armor
+3947,Goblin Shipbuilder,16,,,Goblin Shipbuilder - Between 0-15% Health - Flee For Assist (No Repeat)
+4075,Rat,11,,,
+4416,Defias Strip Miner,27,6016,6016,Defias Strip Miner - Within 0-5 Range - Cast Pierce Armor
+4417,Defias Taskmaster,3,6660;6685,6660;6685,Defias Taskmaster - Outside 30 Range - Start Combat Movement | Defias Taskmaster - Within 5-30 Range - Stop Combat Movement | Defias Taskmaster - Within 0-5 Range - Start Combat Movement | Defias Taskmaster - Within Range 5-30yd - Cast Shoot | Defias Taskmaster - In Combat - Cast Piercing Shot
+4418,Defias Wizard,2,113;4979;9053,113;4979;9053,Defias Wizard - In Combat - Cast Fireball | Defias Wizard - In Combat - Cast Chains of Ice | Defias Wizard - In Combat - Cast Quick Flame Ward | Defias Wizard - Between 0-15% Health - Flee For Assist (No Repeat)

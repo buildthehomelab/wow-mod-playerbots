@@ -3250,3 +3250,8 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Opt into Deadmines cast/ground avoidance and nearby DPS runner/Blackguard focus.
+# Retains generic class interrupts, dispels, CC and tank positioning. Disabled by default.
+# Set before instance strategies initialize; see docs/DEADMINES-MECHANICS.md.
+Playerbots.EnableDeadminesMechanics = 0
