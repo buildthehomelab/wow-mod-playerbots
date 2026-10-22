@@ -1,0 +1,47 @@
+entry,name,fixed_spawns,base_spell_ids,live_spell_ids,binding,live_behaviors
+2110,Black Rat,12,,,,
+2529,Son of Arugal,8,7124,7124,SmartAI,Son of Arugal - Within 0-20 Range - Cast Arugals Gift
+3849,Deathstalker Adamant,1,,,SmartAI,Deathstalker Adamant - On Data Set - Say Line 0 | Deathstalker Adamant - On Data Set - Start WP | Deathstalker Adamant - Wp Reached - Pause WP | Deathstalker Adamant - Wp Reached - Say Line 0 | Deathstalker Adamant - Wp Reached - Pause WP | Deathstalker Adamant - Wp Reached - Start Script | Deathstalker Adamant - Script9 - Say Line 1 | Deathstalker Adamant - Script9 - Play Emote | Deathstalker Adamant - Script9 - Say Line 2 | Deathstalker Adamant - Script9 - Set GO State | Deathstalker Adamant - Script9 - Say Line 3 | Deathstalker Adamant - Script9 - Set Instance Data 0 to 3 | Deathstalker Adamant - Script9 - Move To Pos | Deathstalker Adamant - Script9 - Despawn
+3850,Sorcerer Ashcrombe,1,,6421;6422,SmartAI,Sorcerer Ashcrombe - On Data Set - Create Timed Event | Sorcerer Ashcrombe - On Timed Event - Say Line 0 | Sorcerer Ashcrombe - On Data Set - Start WP | Sorcerer Ashcrombe - Wp Reached - Pause WP | Sorcerer Ashcrombe - Wp Reached - Say Line 0 | Sorcerer Ashcrombe - Wp Reached - Pause WP | Sorcerer Ashcrombe - Wp Reached - Start Script | Sorcerer Ashcrombe - Script9 - Say Line 1 | Sorcerer Ashcrombe - Script9 - Cast Ashcrombe Unlock | Sorcerer Ashcrombe - Script9 - Say Line 2 | Sorcerer Ashcrombe - Script9 - Set GO State | Sorcerer Ashcrombe - Script9 - Cast Ashcrombe Teleport | Sorcerer Ashcrombe - Script9 - Say Line 3 | Sorcerer Ashcrombe - Script9 - Set Instance Data 0 to 3 | Sorcerer Ashcrombe - Script9 - Despawn
+3851,Shadowfang Whitescalp,7,12544,12544,SmartAI,Shadowfang Whitescalp - Out of Combat - Cast Frost Armor
+3853,Shadowfang Moonwalker,14,7121,7121,SmartAI,Shadowfang Moonwalker - In Combat - Cast Anti-Magic Shield
+3854,Shadowfang Wolfguard,1,7106;7107,7106;7107,SmartAI,Shadowfang Wolfguard - Out of Combat - Cast Summon Wolfguard Worg | Shadowfang Wolfguard - In Combat - Cast Dark Restore
+3855,Shadowfang Darksoul,12,970;8140,970;8140,SmartAI,Shadowfang Darksoul - Within 0-20 Range - Cast Befuddlement | Shadowfang Darksoul - Within 0-30 Range - Cast Shadow Word: Pain
+3857,Shadowfang Glutton,4,7122,7122,SmartAI,Shadowfang Glutton - In Combat - Cast Blood Tap
+3859,Shadowfang Ragetooth,8,7072,7072,SmartAI,Shadowfang Ragetooth - Between Health 0-35% - Cast Wild Rage
+3861,Bleak Worg,8,7127,7127,SmartAI,Bleak Worg - Within 0-5 Range - Cast Wavering Will
+3862,Slavering Worg,9,,,SmartAI,
+3863,Lupine Horror,7,7132,7132,SmartAI,Lupine Horror - In Combat - Cast Summon Lupine Delusions
+3864,Fel Steed,3,7139,7139,SmartAI,Fel Steed - In Combat - Cast Fel Stomp
+3866,Vile Bat,1,6713;7145,6713;7145,SmartAI,Vile Bat - In Combat - Cast Diving Sweep | Vile Bat - In Combat - Cast Disarm
+3868,Blood Seeker,1,7140,7140,SmartAI,Blood Seeker - In Combat - Cast Expose Weakness
+3872,Deathsworn Captain,1,7165;9080;15496,7165;9080;15496,SmartAI,Deathsworn Captain - On AI Init - Despawn | Deathsworn Captain - Out of Combat - Cast Battle Stance | Deathsworn Captain - In Combat - Cast Cleave | Deathsworn Captain - In Combat - Cast Hamstring
+3873,Tormented Officer,6,7054,7054,SmartAI,Tormented Officer - Within 0-5 Range - Cast Forsaken Skills
+3875,Haunted Servitor,19,7057,7057,SmartAI,Haunted Servitor - Within 0-5 Range - Cast Haunting Spirits
+3877,Wailing Guardsman,10,7074,7074,SmartAI,Wailing Guardsman - Within 0-5 Range - Cast Screams of the Past
+3886,Razorclaw the Butcher,1,7485,7485,SmartAI,Razorclaw the Butcher - Within 0-5 Range - Cast Butcher Drain
+3887,Baron Silverlaine,1,7068,7068,SmartAI,Baron Silverlaine - In Combat - Say Line 0 (No Repeat) | Baron Silverlaine - In Combat - Cast Veil of Shadow
+3914,Rethilgore,1,7295,7295,SmartAI,Rethilgore - Within 0-10 Range - Cast Soul Drain | Rethilgore - On Just Died - Set Data | Rethilgore - On Just Died - Set Data
+3927,Wolf Master Nandos,1,7487;7489,7487;7488;7489,SmartAI,Wolf Master Nandos - In Combat - Cast Call Slavering Worg (No Repeat) | Wolf Master Nandos - In Combat - Cast Call Bleak Worg (No Repeat) | Wolf Master Nandos - In Combat - Cast Call Lupine Horror (No Repeat) | Wolf Master Nandos - On Just Died - Set Instance Data 2 to 3 | Wolf Master Nandos - On Just Died - Set GO State | Wolf Master Nandos - On Counter Set - Say Line 0 | Wolf Master Nandos - On Counter Set - Attack Start
+4274,Fenrus the Devourer,1,7125,7125,SmartAI,Fenrus the Devourer - In Combat - Cast Toxic Saliva | Fenrus the Devourer - On Just Died - Set Instance Data 1 to 3 | Fenrus the Devourer - On Just Died - Set Data | Fenrus the Devourer - On Just Died - Set Counter
+4275,Archmage Arugal,1,7136;7586;7587;7588;7621;7803,7136;7586;7587;7588;7621;7803,SmartAI,Archmage Arugal - On Data Set - Start Script | Archmage Arugal - On Aggro - Say Line 1 | Archmage Arugal - Killed Unit - Say Line 3 | Archmage Arugal - In Combat - Cast Void Bolt | Archmage Arugal - In Combat - Cast Thundershock | Archmage Arugal - In Combat - Cast Arugal's Curse | Archmage Arugal - Killed Unit - Say Line 2 | Archmage Arugal - In Combat - Run Random Timed Event | Archmage Arugal - On Timed Event - Cast Shadow Port | Archmage Arugal - On Timed Event - Cast Shadow Port | Archmage Arugal - On Timed Event - Cast Shadow Port | Archmage Arugal - Script9 - Say Line 0 | Archmage Arugal - Script9 - Send Custom Anim | Archmage Arugal - Script9 - Summon Creature Group
+4278,Commander Springvale,1,1026;5588;33581,498;1026,SmartAI,Commander Springvale - In Combat - Say Line 0 (No Repeat) | Commander Springvale - Between Health 0-80% - Cast Holy Light | Commander Springvale - On Friendly HP Deficit - Cast Holy Light | Commander Springvale - Between Health 0-25% - Cast Divine Protection | Commander Springvale - On Just Died - Say Line 1
+4279,Odo the Blindwatcher,1,7481;7483;7484,7481;7483;7484,SmartAI,Odo the Blindwatcher - On Aggro - Call For Help | Odo the Blindwatcher - Between Health 0-70% - Cast Howling Rage | Odo the Blindwatcher - Between Health 0-50% - Cast Howling Rage | Odo the Blindwatcher - Between Health 0-30% - Cast Howling Rage
+4444,Deathstalker Vincent,1,,,SmartAI,Deathstalker Vincent - On Aggro - Remove FlagStandstate Dead | Deathstalker Vincent - On Reset - Set Invincibility Hp 1% (No Repeat) | Deathstalker Vincent - On Reset - Set Flag Standstate Dead (No Repeat) | Deathstalker Vincent - Between 0-1% Health - Say Line 0 (No Repeat) | Deathstalker Vincent - Between 0-1% Health - Set Home Position (No Repeat) | Deathstalker Vincent - Between 0-1% Health - Set Faction 35 (No Repeat)
+4627,Arugal's Voidwalker,0,7154,7154,SmartAI,Arugal's Voidwalker - Friendly Missing Health - Cast Dark Offering | Arugal's Voidwalker - On Just Died - Set GO State | Arugal's Voidwalker - On Reset - Attack Start
+4958,Haunting Spirit,0,,,SmartAI,Haunting Spirit - On spawn - Set in combat with zone
+5058,Wolfguard Worg,1,,,SmartAI,
+5097,Lupine Delusion,0,,,SmartAI,Lupine Delusion - Between 0-99% Health - Despawn Instant | Lupine Delusion - On Just Died - Despawn Instant
+10000,Arugal,1,7741,7741,SmartAI,Arugal - Set Invisible | Arugal - Set Visible | Arugal - Cast spell teleport | Arugal - Say text 0 | Arugal - Emote talk | Arugal - Say text 1 | Arugal - Emote point | Arugal - Say text 2 | Arugal - Emote talk | Arugal - Emote laught | Arugal - Say text 3 | Arugal - Cast spell teleport | Arugal - Despawn
+14682,Sever,1,8269;16508;17745,8269;16508;17745,SmartAI,"Sever - In Combat - Cast 'Diseased Spit' | Sever - Between 1-50% Health - Cast 'Frenzy' | Sever - Between 1-50% Health - Say Line 0 ""Sever goes into a frenzy!"" | Sever - On 2 or More Players in Range - Cast 'Intimidating Roar'"
+17822,Landen Stilwell,1,31310,31310,SmartAI,Landen Stilwell - On Gossip Hello - Play Emote | Landen Stilwell - On Gossip Hello - Start Timed Event | Landen Stilwell - On Timed Event - Cast Spell | Landen Stilwell - On Timed Event - Set Faction | Landen Stilwell - On Timed Event - Attack Start
+23033,Invisible Stalker (Floating),2,,,SmartAI,
+36212,[DND] Crazed Apothecary Generator,4,,,,
+36272,Apothecary Frye,0,,,npc_apothecary_frye,
+36296,Apothecary Hummel,1,,,boss_apothecary_hummel,
+36530,[DND] Valentine Boss - Vial Bunny,55,,,,
+36565,Apothecary Baxter,0,,,npc_apothecary_baxter,
+36568,Crazed Apothecary,0,68957,68957,SmartAI,Crazed Apothecary - On Just Summoned - Attack player | Crazed Apothecary - IC LOS - Cast Unstable Reaction | Crazed Apothecary - On evade - Despawn
+36885,Crown Apothecary,7,,,,
+38208,Investigator Fezzen Brasstacks,1,,,,
+614682,Sever,1,,8269;17745,SmartAI,Sever - In Combat - Cast Diseased Spit | Sever - In Combat - Cast Enrage

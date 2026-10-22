@@ -1,0 +1,202 @@
+UntypedValue* Context::Create(std::string const& name)
+{
+    ShadowfangValueContext factory;
+    auto i = factory.creators.find(name);
+    return i == factory.creators.end() ? nullptr : i->second(ai);
+}
+int main()
+{
+    Player bot, ally(2);
+    bot.map = ally.map = 33;
+    Group group;
+    bot.group = ally.group = &group;
+    GroupReference ref;
+    ref.source = &ally;
+    group.first = &ref;
+    PlayerbotAI ai(&bot);
+    ai.units[ally.guid] = &ally;
+    ShadowfangStrategy strategy(&ai);
+    std::vector<TriggerNode*> triggers;
+    std::vector<Multiplier*> multipliers;
+    strategy.InitTriggers(triggers);
+    strategy.InitMultipliers(multipliers);
+    assert(triggers.empty() && multipliers.empty());
+    ally.auras.insert(7621);
+    assert(!Shadowfang::IsCursedAlly(&ai, &ally));
+    sPlayerbotAIConfig.EnableShadowfangMechanics = true;
+    strategy.InitTriggers(triggers);
+    strategy.InitMultipliers(multipliers);
+    ShadowfangActionContext actions;
+    ShadowfangTriggerContext triggerContext;
+    assert(triggers.size() == 3 && multipliers.size() == 2);
+    for (auto trigger : triggers)
+    {
+        assert(triggerContext.creators.contains(trigger->name));
+        for (auto const& action : trigger->actions)
+            assert(actions.creators.contains(action.name));
+    }
+    assert(Shadowfang::IsCursedAlly(&ai, &ally));
+    ai.context.GetValue<uint32>("spell id", "remove curse")->Set(475);
+    bot.spells.insert(475);
+    spellManager.spells[475].dispel = true;
+    ShadowfangDecurseAction decurse(&ai);
+    assert(decurse.isUseful() && decurse.isPossible() && decurse.Execute({}));
+    assert(ai.castId == 475 && ai.castTarget == &ally);
+    spellManager.spells[475].explicitTarget = false;
+    clockNow += 250;
+    assert(!decurse.isUseful() && !decurse.Execute({}));
+    spellManager.spells[475].explicitTarget = true;
+    clockNow += 250;
+    ally.los = false;
+    assert(!decurse.isUseful() && !decurse.Execute({}));
+    ally.los = true;
+    ally.x = 40;
+    assert(!decurse.isPossible());
+    ally.x = 0;
+    ally.dispelEligible = false;
+    assert(!decurse.Execute({}));
+    ally.dispelEligible = true;
+    ally.auras.clear();
+    assert(!decurse.Execute({}));
+    ally.auras.insert(7621);
+    // Exact aura/group/map gate; a hostile stranger is never protected as party.
+    Group strangers;
+    ally.group = &strangers;
+    assert(!Shadowfang::IsCursedAlly(&ai, &ally));
+    ally.group = &group;
+    ally.map = 1;
+    assert(!decurse.Execute({}));
+    ally.map = 33;
+    CastSpellAction damage(&ai, "damage"), heal(&ai, "heal"), removeCurse(&ai, "remove curse");
+    ai.context.GetValue<uint32>("spell id", "damage")->Set(100);
+    ai.context.GetValue<uint32>("spell id", "heal")->Set(101);
+    spellManager.spells[100].area = true;
+    spellManager.spells[101].positive = true;
+    clockNow += 250;
+    assert(multipliers[1]->GetValue(&damage) == 0);
+    ally.z = 20;
+    assert(multipliers[1]->GetValue(&damage) == 1);
+    ally.z = 0;
+    ally.x = 20;
+    assert(multipliers[1]->GetValue(&damage) == 1);
+    ally.x = 0;
+    assert(multipliers[1]->GetValue(&heal) == 1 && multipliers[1]->GetValue(&removeCurse) == 1);
+    SpellInfo harmful;
+    Spell harmfulCast{&harmful, {ally.guid}};
+    bot.currentSpell[CURRENT_GENERIC_SPELL] = &harmfulCast;
+    bot.victim = &ally;
+    ai.context.GetValue<Unit*>("current target")->Set(&ally);
+    Pet pet;
+    pet.victim = &ally;
+    pet.currentSpell[CURRENT_GENERIC_SPELL] = &harmfulCast;
+    bot.pet = &pet;
+    ShadowfangProtectAction protect(&ai);
+    assert(protect.isUseful() && protect.Execute({}));
+    assert(!bot.victim && !pet.victim && bot.castStops == 1 && pet.castStops == 1);
+    assert(!ai.context.GetValue<Unit*>("current target")->Get());
+    SpellInfo positive;
+    positive.positive = true;
+    Spell positiveCast{&positive, {}};
+    bot.currentSpell[CURRENT_GENERIC_SPELL] = &positiveCast;
+    pet.currentSpell[CURRENT_GENERIC_SPELL] = nullptr;
+    assert(!protect.isUseful());
+    ally.auras.clear();
+    clockNow += 250;
+    assert(multipliers[1]->GetValue(&damage) == 1);
+    // Active Chain Reaction only; instant trash attacks are not invented cast hazards.
+    Creature caster(12);
+    caster.map = 33;
+    ai.units[caster.guid] = &caster;
+    ai.context.GetValue<GuidVector>("attackers")->Set({caster.guid});
+    SpellInfo chain;
+    chain.Id = 68821;
+    for (auto& effect : chain.Effects)
+        effect.radius = 9;
+    Spell cast{&chain, {}};
+    caster.currentSpell[CURRENT_GENERIC_SPELL] = &cast;
+    assert(Shadowfang::CollectHazard(&ai).radius == 12);
+    chain.Id = 7139;
+    assert(!Shadowfang::CollectHazard(&ai).active);
+    chain.Id = 68821;
+    clockNow += 250;
+    ShadowfangEscapeAction escape(&ai);
+    MovementAction approach(&ai, "approach");
+    CastEscapeArtistAction escapeArtist(&ai);
+    assert(multipliers[0]->GetValue(&approach) == 0 && multipliers[0]->GetValue(&heal) == 1);
+    ai.canMove = false;
+    int before = bot.castStops;
+    assert(!escape.isUseful() && !escape.Execute({}) && bot.castStops == before);
+    assert(multipliers[0]->GetValue(&escapeArtist) == 1);
+    ai.canMove = true;
+    for (int step = 0; step < 3; ++step)
+    {
+        clockNow += 600;
+        assert(escape.Execute({}));
+        int moves = ai.moves;
+        assert(escape.Execute({}) && ai.moves == moves);
+        bot.Relocate(bot.spline.destination.x, bot.spline.destination.y, bot.spline.destination.z);
+        bot.StopMoving();
+    }
+    assert(bot.x == 15 && !escape.Execute({}));
+    bot.x = 0;
+    ai.moveBlocked = true;
+    before = bot.castStops;
+    clockNow += 600;
+    assert(!escape.Execute({}) && bot.castStops == before);
+    ai.moveBlocked = false;
+    ai.pathRejected = true;
+    clockNow += 600;
+    assert(!escape.Execute({}) && bot.castStops == before && ai.movement.clears == 0);
+    ai.pathRejected = false;
+    bot.movementCast = true;
+    clockNow += 600;
+    assert(escape.Execute({}) && bot.deferredMove && bot.castStops == before + 1);
+    bot.MovementUpdate();
+    assert(escape.Execute({}) && bot.spline.destination.x == 5);
+    caster.currentSpell[CURRENT_GENERIC_SPELL] = nullptr;
+    bot.StopMoving();
+    // DynObjAura applies periodic-dummy226 to hostile players, even with entry conditions.
+    DynamicObject floor;
+    floor.radius = 9;
+    Aura spill;
+    spill.id = 68798;
+    spill.area = &floor;
+    AuraEffect effect{&spill};
+    bot.effects[SPELL_AURA_PERIODIC_DUMMY] = {&effect};
+    assert(Shadowfang::CollectHazard(&ai).radius == 12);
+    bot.auras.insert(68529);
+    assert(!Shadowfang::CollectHazard(&ai).active);
+    bot.auras.clear();
+    spill.id = 68614;
+    assert(Shadowfang::CollectHazard(&ai).active);
+    spill.removed = true;
+    assert(!Shadowfang::CollectHazard(&ai).active);
+    spill.removed = false;
+    floor.world = false;
+    assert(!Shadowfang::CollectHazard(&ai).active);
+    floor.world = true;
+    spill.id = 970;
+    assert(!Shadowfang::CollectHazard(&ai).active);
+    spill.id = 68798;
+    DynamicObject secondFloor;
+    secondFloor.x = -3;
+    secondFloor.radius = 9;
+    Aura secondSpill;
+    secondSpill.id = 68614;
+    secondSpill.area = &secondFloor;
+    AuraEffect secondEffect{&secondSpill};
+    bot.effects[SPELL_AURA_PERIODIC_DUMMY].push_back(&secondEffect);
+    assert(Shadowfang::CollectHazard(&ai).radius > 12);
+    bot.combat = false;
+    assert(Shadowfang::CollectHazard(&ai).active);
+    bot.map = 1;
+    assert(!Shadowfang::CollectHazard(&ai).active);
+    bot.map = 33;
+    sPlayerbotAIConfig.EnableShadowfangMechanics = false;
+    assert(!escape.Execute({}) && !protect.isUseful() && !decurse.isUseful());
+    for (auto t : triggers)
+        delete t;
+    for (auto m : multipliers)
+        delete m;
+    std::cout << "Shadowfang actual-source scenarios passed\n";
+}
