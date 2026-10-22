@@ -6,7 +6,6 @@
 
 #include "ActionContext.h"
 #include "AiObjectContext.h"
-#include "WailingCavernsContexts.h"
 #include "Aq20ActionContext.h"
 #include "BTActionContext.h"
 #include "BWLActionContext.h"
@@ -29,6 +28,7 @@
 #include "UldActionContext.h"
 #include "VanillaDungeonActionContext.h"
 #include "VoAActionContext.h"
+#include "WailingCavernsContexts.h"
 #include "WorldPacketActionContext.h"
 #include "WotlkDungeonActionContext.h"
 #include "ZAActionContext.h"

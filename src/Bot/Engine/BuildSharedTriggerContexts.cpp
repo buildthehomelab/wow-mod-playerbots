@@ -5,7 +5,6 @@
  */
 
 #include "AiObjectContext.h"
-#include "WailingCavernsContexts.h"
 #include "Aq20TriggerContext.h"
 #include "BTTriggerContext.h"
 #include "BWLTriggerContext.h"
@@ -29,6 +28,7 @@
 #include "UldTriggerContext.h"
 #include "VanillaDungeonTriggerContext.h"
 #include "VoATriggerContext.h"
+#include "WailingCavernsContexts.h"
 #include "WorldPacketTriggerContext.h"
 #include "WotlkDungeonTriggerContext.h"
 #include "ZATriggerContext.h"

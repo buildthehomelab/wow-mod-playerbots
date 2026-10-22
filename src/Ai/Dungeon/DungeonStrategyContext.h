@@ -22,15 +22,15 @@
 #include "OCStrategy.h"
 #include "PoSStrategy.h"
 #include "RampStrategy.h"
-#include "SethStrategy.h"
 #include "SMStrategy.h"
-#include "WailingCavernsStrategy.h"
+#include "SethStrategy.h"
 #include "Strategy.h"
 #include "TOCStrategy.h"
 #include "UBStrategy.h"
 #include "UKStrategy.h"
 #include "UPStrategy.h"
 #include "VHStrategy.h"
+#include "WailingCavernsStrategy.h"
 
 class DungeonStrategyContext : public NamedObjectContext<Strategy>
 {
