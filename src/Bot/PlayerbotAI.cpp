@@ -1936,15 +1936,27 @@ std::vector<std::string> PlayerbotAI::GetStrategies(BotState type)
 
 void PlayerbotAI::ApplyInstanceStrategies(uint32 mapId, bool tellMaster)
 {
-    static const std::vector<std::string> allInstanceStrategies =
-    {
-        "aq20", "blacktemple", "bwl", "gruulslair", "hyjal", "icc", "karazhan", "magtheridon",
-        "moltencore", "naxx", "onyxia", "rs", "ssc", "tbc-ac", "tbc-mech", "tbc-mgt", "tbc-ramp",
-        "tbc-seth", "tbc-ub", "tempestkeep", "ulduar", "vanilla-wailing-caverns", "vanilla-sm", "voa", "wotlk-an", "wotlk-cos",
-        "wotlk-dtk", "wotlk-eoe", "wotlk-fos", "wotlk-gd", "wotlk-hol", "wotlk-hos", "wotlk-nex",
-        "wotlk-occ", "wotlk-ok", "wotlk-os", "wotlk-pos", "wotlk-toc", "wotlk-uk", "wotlk-up",
-        "wotlk-vh", "zulaman"
-    };
+    static const std::vector<std::string> allInstanceStrategies = {"aq20",       "blacktemple",
+                                                                   "bwl",        "gruulslair",
+                                                                   "hyjal",      "icc",
+                                                                   "karazhan",   "magtheridon",
+                                                                   "moltencore", "naxx",
+                                                                   "onyxia",     "rs",
+                                                                   "ssc",        "tbc-ac",
+                                                                   "tbc-mech",   "tbc-mgt",
+                                                                   "tbc-ramp",   "tbc-seth",
+                                                                   "tbc-ub",     "tempestkeep",
+                                                                   "ulduar",     "vanilla-wailing-caverns",
+                                                                   "vanilla-sm", "voa",
+                                                                   "wotlk-an",   "wotlk-cos",
+                                                                   "wotlk-dtk",  "wotlk-eoe",
+                                                                   "wotlk-fos",  "wotlk-gd",
+                                                                   "wotlk-hol",  "wotlk-hos",
+                                                                   "wotlk-nex",  "wotlk-occ",
+                                                                   "wotlk-ok",   "wotlk-os",
+                                                                   "wotlk-pos",  "wotlk-toc",
+                                                                   "wotlk-uk",   "wotlk-up",
+                                                                   "wotlk-vh",   "zulaman"};
 
     // Restore encounter-owned pet stance before removing the only cleanup trigger.
     if (mapId != 409 && HasStrategy("moltencore", BOT_STATE_COMBAT))
