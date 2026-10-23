@@ -215,6 +215,14 @@ struct AttackAction : Action
         return true;
     }
 };
+struct AttackMyTargetAction : AttackAction
+{
+    using AttackAction::AttackAction;
+};
+struct AttackDuelOpponentAction : AttackAction
+{
+    using AttackAction::AttackAction;
+};
 struct MeleeAction : AttackAction
 {
     using AttackAction::AttackAction;

@@ -20,7 +20,8 @@ public:
     float GetValue(Action* action) override
     {
         if (!dynamic_cast<AttackAction*>(action) || dynamic_cast<StockadeFocusAction*>(action) ||
-            dynamic_cast<MeleeAction*>(action))
+            dynamic_cast<MeleeAction*>(action) || dynamic_cast<AttackMyTargetAction*>(action) ||
+            dynamic_cast<AttackDuelOpponentAction*>(action))
             return 1.0f;
         return Stockade::GetFocus(botAI) ? 0.0f : 1.0f;
     }

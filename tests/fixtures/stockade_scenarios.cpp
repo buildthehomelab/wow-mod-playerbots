@@ -58,6 +58,13 @@ int main()
     AttackAction ordinary(&ai, "attack anything");
     MeleeAction melee(&ai, "melee");
     Action heal(&ai, "heal");
+    AttackMyTargetAction manualAttack(&ai, "attack my target");
+    AttackDuelOpponentAction duelAttack(&ai, "attack duel opponent");
+    // The command must survive before Execute records its prioritized target.
+    assert(ai.context.GetValue<GuidVector>("prioritized targets")->Get().empty());
+    assert(Stockade::GetFocus(&ai) == &ward);
+    assert(multipliers[0]->GetValue(&manualAttack) == 1);
+    assert(multipliers[0]->GetValue(&duelAttack) == 1);
     assert(multipliers[0]->GetValue(&ordinary) == 0);
     assert(multipliers[0]->GetValue(&melee) == 1 && multipliers[0]->GetValue(&heal) == 1);
     assert(focus.isUseful() && focus.Execute({}));

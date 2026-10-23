@@ -79,7 +79,8 @@ and melee 12-yard or normal ranged spell range are revalidated by the action.
 Rejected CC focus invalidates the cache so other attack acquisition is released.
 
 Tanks retain aggro work; healers retain healing. The multiplier suppresses only
-competing AttackAction acquisition, allowing melee, class spells, interrupts,
+competing automatic AttackAction acquisition, allowing manual attack commands to
+record their priority, duel selection, melee, class spells, interrupts,
 dispels, recovery and healing. Assistance movement may be passive; passive fear
 fallback is excluded. No new snare/CC spell selection or movement planner is added.
 The strategy is added and removed through ApplyInstanceStrategies for map 34.
@@ -95,7 +96,8 @@ PRs to merge.
 Run `python3 tests/test_stockade.py`, module codestyle and clang-format dry-run on
 new encounter/fixture C++. The harness compiles and executes actual source against
 engine doubles: all nine allowed entries, excluded Hamhock/Targorr/guard, toggle,
-map, roles, explicit orders, late CC/range/LOS/validity changes, passive assistant
+map, roles, explicit orders (including unsuppressed manual attack before its priority
+is recorded), late CC/range/LOS/validity changes, passive assistant
 movement and generic attack/melee/spell priority preservation. This checks behavior
 contracts, not core ABI, server collision or real cast legality.
 
