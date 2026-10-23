@@ -25,6 +25,7 @@
 #include "SethStrategy.h"
 #include "SMStrategy.h"
 #include "Strategy.h"
+#include "StockadeStrategy.h"
 #include "TOCStrategy.h"
 #include "UBStrategy.h"
 #include "UKStrategy.h"
@@ -36,6 +37,8 @@ class DungeonStrategyContext : public NamedObjectContext<Strategy>
 public:
     DungeonStrategyContext() : NamedObjectContext<Strategy>(false, true)
     {
+        creators["vanilla-stockade"] = &DungeonStrategyContext::stockade;
+
         // Vanilla
         creators["vanilla-sm"] = &DungeonStrategyContext::vanilla_sm;   // Scarlet Monastery
 
@@ -66,6 +69,7 @@ public:
     }
 
 private:
+    static Strategy* stockade(PlayerbotAI* botAI) { return new StockadeStrategy(botAI); }
     static Strategy* vanilla_sm(PlayerbotAI* botAI) { return new VanillaDungeonScarletMonasteryStrategy(botAI); }
     static Strategy* tbc_ac(PlayerbotAI* botAI) { return new TbcDungeonAuchenaiCryptsStrategy(botAI); }
     static Strategy* tbc_seth(PlayerbotAI* botAI) { return new TbcDungeonSethekkHallsStrategy(botAI); }
