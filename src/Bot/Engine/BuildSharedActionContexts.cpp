@@ -4,6 +4,9 @@
  * or (at your option) any later version.
  */
 
+#include "BlackfathomAvoidanceContexts.h"
+#include "BlackfathomCharm.h"
+#include "BlackfathomContexts.h"
 #include "ActionContext.h"
 #include "AiObjectContext.h"
 #include "Aq20ActionContext.h"
@@ -35,6 +38,9 @@
 void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
+    actionContexts.Add(new BlackfathomAvoidanceActionContext());
+    actionContexts.Add(new BlackfathomCharmActionContext());
+    actionContexts.Add(new BlackfathomActionContext());
     actionContexts.Add(new ActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());

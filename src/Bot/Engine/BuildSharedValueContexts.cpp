@@ -4,6 +4,9 @@
  * or (at your option) any later version.
  */
 
+#include "BlackfathomAvoidanceContexts.h"
+#include "BlackfathomCharm.h"
+#include "BlackfathomContexts.h"
 #include "AiObjectContext.h"
 #include "GDValueContext.h"
 #include "GruulValueContext.h"
@@ -20,6 +23,9 @@
 void AiObjectContext::BuildSharedValueContexts(
     SharedNamedObjectContextList<UntypedValue>& valueContexts)
 {
+    valueContexts.Add(new BlackfathomAvoidanceValueContext());
+    valueContexts.Add(new BlackfathomCharmValueContext());
+    valueContexts.Add(new BlackfathomValueContext());
     valueContexts.Add(new ValueContext());
     valueContexts.Add(new RaidGruulsLairValueContext());
     valueContexts.Add(new RaidHyjalValueContext());
