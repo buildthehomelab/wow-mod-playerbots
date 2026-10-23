@@ -10,6 +10,7 @@
 #include "BWLTriggerContext.h"
 #include "ChatTriggerContext.h"
 #include "EoETriggerContext.h"
+#include "GnomereganContexts.h"
 #include "GruulTriggerContext.h"
 #include "HyjalTriggerContext.h"
 #include "ICCTriggerContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedTriggerContexts(
     SharedNamedObjectContextList<Trigger>& triggerContexts)
 {
+    triggerContexts.Add(new GnomereganTriggerContext());
     triggerContexts.Add(new TriggerContext());
     triggerContexts.Add(new ChatTriggerContext());
     triggerContexts.Add(new WorldPacketTriggerContext());

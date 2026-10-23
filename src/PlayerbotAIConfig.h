@@ -282,6 +282,7 @@ public:
     std::string RandomBotCombatStrategies, RandomBotNonCombatStrategies;
     std::string ReactStrategies, RandomBotReactStrategies;
     bool ApplyInstanceStrategies;
+    bool EnableGnomereganMechanics;
     uint32 RandomBotMinLevel, RandomBotMaxLevel;
     float RandomChangeMultiplier;
 
