@@ -189,6 +189,8 @@ public:
     bool RandomBotTalk;
     bool RandomBotEmote;
     bool RandomBotSuggestDungeons;
+    bool EnableHerodWhirlwindAvoidance;
+    bool EnableScarletMonasteryMechanics;
     bool EnableBroadcasts;
     bool EnableGreet;
     bool RandomBotSayWithoutMaster;

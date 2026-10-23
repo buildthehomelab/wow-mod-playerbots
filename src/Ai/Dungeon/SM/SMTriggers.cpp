@@ -5,13 +5,34 @@
  */
 
 #include "SMTriggers.h"
+
+#include "Pet.h"
 #include "Playerbots.h"
 #include "SMShared.h"
 
 using namespace SMShared;
 
-bool ArcanistDoanBossCastingDetonationTrigger::IsActive()
+bool ScarletHazardTrigger::IsActive()
 {
-    Unit* doan = AI_VALUE2(Unit*, "find target", "arcanist doan");
-    return doan && IsDetonationImminent(doan) && bot->GetExactDist2d(doan) < DETONATION_SAFE_DISTANCE;
+    Unit* boss = GetEncounterTarget(botAI, _encounter);
+    return IsHazardActive(boss, _encounter) && bot->GetExactDist2d(boss) < SafeDistance(_encounter);
 }
+
+bool ScarletFocusTrigger::IsActive()
+{
+    Unit* target = GetFocusTarget(botAI);
+    return target && AI_VALUE(Unit*, "current target") != target;
+}
+
+bool ScarletDominateTrigger::IsActive() { return bot->GetMapId() == SM_MAP_ID && GetDominatedAlly(botAI); }
+
+bool ScarletProtectAllyTrigger::IsActive()
+{
+    Pet* pet = bot->GetPet();
+    return IsCastingAtDominatedAlly(botAI, bot) || IsCastingAtDominatedAlly(botAI, pet) ||
+           IsDominatedPartyMember(bot, bot->GetVictim()) ||
+           IsDominatedPartyMember(bot, AI_VALUE(Unit*, "current target")) ||
+           (pet && IsDominatedPartyMember(bot, pet->GetVictim()));
+}
+
+bool ScarletGroundDamageTrigger::IsActive() { return bot->GetMapId() == SM_MAP_ID && IsInGroundDamage(botAI); }

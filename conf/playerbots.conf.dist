@@ -3267,3 +3267,12 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Enable escape from Herod's Whirlwind in Scarlet Monastery, including tanks.
+# Bots hold their distance until Whirlwind ends. Default: 0 (disabled).
+Playerbots.EnableHerodWhirlwindAvoidance = 0
+
+# Enable Scarlet Monastery cast avoidance, healer focus and Dominate Mind dispelling.
+# Includes Herod avoidance; preserves tank/healer roles and explicit kill orders.
+# Set before startup. Default: 0 (disabled pending realm validation).
+Playerbots.EnableScarletMonasteryMechanics = 0

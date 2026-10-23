@@ -5,21 +5,139 @@
  */
 
 #include "SMActions.h"
+
+#include "LastMovementValue.h"
+#include "MoveSpline.h"
+#include "Pet.h"
 #include "Playerbots.h"
 #include "SMShared.h"
+#include "Timer.h"
 
 using namespace SMShared;
 
-bool ArcanistDoanMoveOutOfDetonationAction::Execute(Event /*event*/)
+bool ScarletAvoidanceAction::isUseful()
 {
-    Unit* doan = AI_VALUE2(Unit*, "find target", "arcanist doan");
-    if (!doan)
+    Unit* boss = GetEncounterTarget(botAI, _encounter);
+    return IsHazardActive(boss, _encounter) && bot->GetExactDist2d(boss) < SafeDistance(_encounter);
+}
+
+bool ScarletAvoidanceAction::Execute(Event /*event*/)
+{
+    Unit* boss = GetEncounterTarget(botAI, _encounter);
+    if (!IsHazardActive(boss, _encounter))
+        return false;
+    float const distance = bot->GetExactDist2d(boss);
+    float const safeDistance = SafeDistance(_encounter);
+    if (distance >= safeDistance)
         return false;
 
-    float const distance = bot->GetExactDist2d(doan);
-    if (distance >= DETONATION_SAFE_DISTANCE)
-        return false;
+    if (_escapeBoss == boss->GetGUID() && bot->isMoving() && !bot->movespline->Finalized())
+    {
+        G3D::Vector3 const destination = bot->movespline->FinalDestination();
+        if (_escapeDestination.GetExactDist(destination.x, destination.y, destination.z) < 0.5f)
+            return true;
+    }
 
+    uint32 const now = getMSTime();
+    if (_escapeBoss == boss->GetGUID() && _lastAttemptMs && getMSTimeDiff(_lastAttemptMs, now) < 500)
+        return false;
+    _escapeBoss = boss->GetGUID();
+    _lastAttemptMs = now;
     bot->CastStop();
-    return MoveAway(doan, DETONATION_SAFE_DISTANCE - distance);
+    AI_VALUE(LastMovement&, "last movement").clear();
+    if (!MoveAway(boss, safeDistance - distance))
+        return false;
+
+    G3D::Vector3 const destination = bot->movespline->FinalDestination();
+    _escapeDestination.Relocate(destination.x, destination.y, destination.z);
+    return true;
+}
+
+bool ScarletFocusAction::isUseful()
+{
+    Unit* target = GetFocusTarget(botAI);
+    return target && AI_VALUE(Unit*, "current target") != target && CanFocusTarget(botAI, target);
+}
+
+bool ScarletFocusAction::Execute(Event /*event*/)
+{
+    Unit* target = GetFocusTarget(botAI);
+    return target && CanFocusTarget(botAI, target) && Attack(target);
+}
+
+bool ScarletDispelDominateAction::isUseful() { return bot->GetMapId() == SM_MAP_ID && GetDominatedAlly(botAI); }
+
+bool ScarletDispelDominateAction::isPossible()
+{
+    uint32 const spellId = CharmDispelSpell(botAI);
+    Unit* target = GetDominatedAlly(botAI);
+    return CanDispelDominate(botAI, target, spellId) && botAI->CanCastSpell(spellId, target);
+}
+
+bool ScarletDispelDominateAction::Execute(Event /*event*/)
+{
+    uint32 const spellId = CharmDispelSpell(botAI);
+    Unit* target = GetDominatedAlly(botAI);
+    return CanDispelDominate(botAI, target, spellId) && botAI->CastSpell(spellId, target);
+}
+
+bool ScarletProtectAllyAction::isUseful()
+{
+    Pet* pet = bot->GetPet();
+    return IsCastingAtDominatedAlly(botAI, bot) || IsCastingAtDominatedAlly(botAI, pet) ||
+           IsDominatedPartyMember(bot, bot->GetVictim()) ||
+           IsDominatedPartyMember(bot, AI_VALUE(Unit*, "current target")) ||
+           (pet && IsDominatedPartyMember(bot, pet->GetVictim()));
+}
+
+bool ScarletProtectAllyAction::Execute(Event /*event*/)
+{
+    bool changed = false;
+    if (IsCastingAtDominatedAlly(botAI, bot))
+    {
+        bot->CastStop();
+        changed = true;
+    }
+    if (IsDominatedPartyMember(bot, bot->GetVictim()) || IsDominatedPartyMember(bot, AI_VALUE(Unit*, "current target")))
+    {
+        bot->CastStop();
+        bot->AttackStop();
+        context->GetValue<Unit*>("current target")->Set(nullptr);
+        bot->SetSelection(ObjectGuid::Empty);
+        changed = true;
+    }
+    if (Pet* pet = bot->GetPet())
+        if (IsDominatedPartyMember(bot, pet->GetVictim()) || IsCastingAtDominatedAlly(botAI, pet))
+        {
+            pet->CastStop();
+            pet->AttackStop();
+            changed = true;
+        }
+    return changed;
+}
+
+bool ScarletGroundEscapeAction::isUseful() { return bot->GetMapId() == SM_MAP_ID && IsInGroundDamage(botAI); }
+
+bool ScarletGroundEscapeAction::Execute(Event /*event*/)
+{
+    GroundArea const area = CollectGroundArea(botAI);
+    if (!area.active)
+        return false;
+    if (_lastAttemptMs && bot->isMoving() && !bot->movespline->Finalized())
+    {
+        G3D::Vector3 const destination = bot->movespline->FinalDestination();
+        if (_destination.GetExactDist(destination.x, destination.y, destination.z) < 0.5f)
+            return true;
+    }
+    uint32 const now = getMSTime();
+    if (_lastAttemptMs && getMSTimeDiff(_lastAttemptMs, now) < 1000)
+        return false;
+    _lastAttemptMs = now;
+    bot->CastStop();
+    AI_VALUE(LastMovement&, "last movement").clear();
+    if (!FleePosition(area.center, area.radius))
+        return false;
+    G3D::Vector3 const destination = bot->movespline->FinalDestination();
+    _destination.Relocate(destination.x, destination.y, destination.z);
+    return true;
 }

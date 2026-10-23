@@ -12,6 +12,7 @@
 #include "MechValueContext.h"
 #include "MgTValueContext.h"
 #include "SSCValueContext.h"
+#include "SMValueContext.h"
 #include "TKValueContext.h"
 #include "UBValueContext.h"
 #include "ZAValueContext.h"
@@ -31,4 +32,5 @@ void AiObjectContext::BuildSharedValueContexts(
     valueContexts.Add(new TbcDungeonMgTValueContext());
     valueContexts.Add(new TbcDungeonUnderbogValueContext());
     valueContexts.Add(new WotlkDungeonGDValueContext());
+    valueContexts.Add(new VanillaDungeonScarletMonasteryValueContext());
 }

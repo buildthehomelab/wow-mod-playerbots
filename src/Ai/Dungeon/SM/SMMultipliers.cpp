@@ -5,34 +5,69 @@
  */
 
 #include "SMMultipliers.h"
+
 #include "GenericSpellActions.h"
-#include "MovementActions.h"
 #include "Playerbots.h"
 #include "ReachTargetActions.h"
 #include "SMActions.h"
 #include "SMShared.h"
+#include "SpellInfo.h"
+#include "SpellMgr.h"
 
 using namespace SMShared;
 
-float ArcanistDoanDetonationMultiplier::GetValue(Action* action)
+float ScarletHazardMultiplier::GetValue(Action* action)
 {
-    if (dynamic_cast<ArcanistDoanMoveOutOfDetonationAction*>(action))
+    if (dynamic_cast<ScarletAvoidanceAction*>(action) || dynamic_cast<ScarletGroundEscapeAction*>(action))
         return 1.0f;
-
-    bool const isMovement =
-        dynamic_cast<MovementAction*>(action) || dynamic_cast<CastReachTargetSpellAction*>(action);
-    bool const isSpell = dynamic_cast<CastSpellAction*>(action);
+    bool const isMovement = dynamic_cast<MovementAction*>(action) || dynamic_cast<CastReachTargetSpellAction*>(action);
+    bool const isSpell = dynamic_cast<CastSpellAction*>(action) || dynamic_cast<ScarletDispelDominateAction*>(action);
     if (!isMovement && !isSpell)
         return 1.0f;
-
-    Unit* doan = AI_VALUE2(Unit*, "find target", "arcanist doan");
-    if (!doan || !IsDetonationImminent(doan))
+    Unit* boss = GetEncounterTarget(botAI, _encounter);
+    if (!IsHazardActive(boss, _encounter))
         return 1.0f;
-
-    // Nothing may walk a bot back toward Doan until Detonation has gone off.
     if (isMovement)
         return 0.0f;
+    return bot->GetExactDist2d(boss) < SafeDistance(_encounter) ? 0.0f : 1.0f;
+}
 
-    // Inside the blast radius, standing still to cast is how bots die; outside it they may keep casting.
-    return bot->GetExactDist2d(doan) < DETONATION_SAFE_DISTANCE ? 0.0f : 1.0f;
+float ScarletFocusMultiplier::GetValue(Action* action)
+{
+    if (!dynamic_cast<AttackAction*>(action) || dynamic_cast<ScarletFocusAction*>(action) ||
+        dynamic_cast<MeleeAction*>(action))
+        return 1.0f;
+    return GetFocusTarget(botAI) ? 0.0f : 1.0f;
+}
+
+float ScarletCharmSafetyMultiplier::GetValue(Action* action)
+{
+    CastSpellAction* cast = dynamic_cast<CastSpellAction*>(action);
+    AttackAction* attack = dynamic_cast<AttackAction*>(action);
+    if (!cast && !attack)
+        return 1.0f;
+    GuidVector const charmed = AI_VALUE(GuidVector, "scarlet charmed party");
+    if (charmed.empty())
+        return 1.0f;
+    if (cast)
+    {
+        uint32 const spellId = AI_VALUE2(uint32, "spell id", cast->getSpell());
+        SpellInfo const* info = sSpellMgr->GetSpellInfo(spellId);
+        if (!info || info->IsPositive())
+            return 1.0f;
+        if (info->IsAffectingArea())
+            return 0.0f;
+    }
+    return IsDominatedPartyMember(bot, action->GetTarget()) ? 0.0f : 1.0f;
+}
+
+float ScarletGroundDamageMultiplier::GetValue(Action* action)
+{
+    if (dynamic_cast<ScarletAvoidanceAction*>(action) || dynamic_cast<ScarletGroundEscapeAction*>(action) ||
+        dynamic_cast<AvoidAoeAction*>(action))
+        return 1.0f;
+    if (!dynamic_cast<MovementAction*>(action) && !dynamic_cast<CastReachTargetSpellAction*>(action) &&
+        !dynamic_cast<CastSpellAction*>(action) && !dynamic_cast<ScarletDispelDominateAction*>(action))
+        return 1.0f;
+    return IsInGroundDamage(botAI) ? 0.0f : 1.0f;
 }
