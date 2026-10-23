@@ -76,6 +76,10 @@ attackers list. The whitelist is the nine actors with verified action 25. Numeri
 GUID focus caches refresh every 500ms; triggers do no grid/name/DB scans. Late
 CC, role, explicit skull/prioritized orders, alive/world/map/combat validity, LOS
 and melee 12-yard or normal ranged spell range are revalidated by the action.
+Explicit skull/stored priorities block only while the resolved target satisfies
+AttackersValue::IsValidTarget. A 500ms bool cache keeps priority-list iteration out
+of triggers; actions recheck immediately. Dead/despawned/stale GUIDs do not disable
+focus for the remainder of a fight.
 Rejected CC focus invalidates the cache so other attack acquisition is released.
 
 Tanks retain aggro work; healers retain healing. The multiplier suppresses only

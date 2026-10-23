@@ -15,6 +15,7 @@ class Unit;
 namespace Stockade
 {
 constexpr uint32 MAP_ID = 34;
+bool HasExplicitTarget(PlayerbotAI* botAI);
 ObjectGuid FindFocus(PlayerbotAI* botAI);
 Unit* GetFocus(PlayerbotAI* botAI);
 bool CanFocus(PlayerbotAI* botAI, Unit* target);

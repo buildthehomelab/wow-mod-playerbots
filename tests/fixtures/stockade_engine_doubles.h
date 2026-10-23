@@ -109,6 +109,14 @@ public:
     bool IsWithinLOSInMap(Unit* u) { return u->los; }
     bool IsWithinCombatRange(Unit* u, float range) { return std::hypot(x - u->x, y - u->y) <= range; }
 };
+struct AttackersValue
+{
+    static bool IsValidTarget(Unit* target, Player* bot)
+    {
+        return target && target->world && bot->IsValidAttackTarget(target) &&
+               bot->IsWithinCombatRange(target, 100.0f) && bot->IsWithinLOSInMap(target);
+    }
+};
 uint32 clockNow = 1000;
 class PlayerbotAI;
 struct UntypedValue

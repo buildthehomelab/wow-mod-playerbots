@@ -21,13 +21,26 @@ public:
 protected:
     ObjectGuid Calculate() override { return Stockade::FindFocus(botAI); }
 };
+class StockadeExplicitTargetValue : public BoolCalculatedValue
+{
+public:
+    StockadeExplicitTargetValue(PlayerbotAI* botAI) : BoolCalculatedValue(botAI, "stockade explicit target", 500) {}
+
+protected:
+    bool Calculate() override { return Stockade::HasExplicitTarget(botAI); }
+};
 class StockadeValueContext : public NamedObjectContext<UntypedValue>
 {
 public:
-    StockadeValueContext() { creators["stockade focus"] = &focus; }
+    StockadeValueContext()
+    {
+        creators["stockade focus"] = &focus;
+        creators["stockade explicit target"] = &explicitTarget;
+    }
 
 private:
     static UntypedValue* focus(PlayerbotAI* botAI) { return new StockadeFocusValue(botAI); }
+    static UntypedValue* explicitTarget(PlayerbotAI* botAI) { return new StockadeExplicitTargetValue(botAI); }
 };
 class StockadeFocusTrigger : public Trigger
 {

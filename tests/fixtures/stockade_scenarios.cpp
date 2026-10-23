@@ -123,6 +123,30 @@ int main()
     group.skull = {};
     ai.context.GetValue<GuidVector>("prioritized targets")->Set({other.guid});
     assert(!focus.Execute({}) && !Stockade::FindFocus(&ai));
+    other.alive = false;
+    clockNow += 500;
+    assert(Stockade::FindFocus(&ai) == captive.guid);
+    assert(Stockade::GetFocus(&ai) == &captive && focus.Execute({}));
+    other.alive = true;
+    for (bool* required : {&other.world, &other.valid, &other.los})
+    {
+        *required = false;
+        clockNow += 500;
+        assert(Stockade::FindFocus(&ai) == captive.guid);
+        assert(Stockade::GetFocus(&ai) == &captive && focus.Execute({}));
+        *required = true;
+    }
+    ai.context.GetValue<GuidVector>("prioritized targets")->Set({ObjectGuid(999)});
+    clockNow += 500;
+    assert(Stockade::GetFocus(&ai) == &captive && focus.Execute({}));
+    ai.context.GetValue<GuidVector>("prioritized targets")->Set({other.guid});
+    assert(!focus.Execute({}));
+    other.alive = false;
+    group.skull = other.guid;
+    clockNow += 500;
+    assert(Stockade::GetFocus(&ai) == &captive && focus.Execute({}));
+    other.alive = true;
+    group.skull = {};
     ai.context.GetValue<GuidVector>("prioritized targets")->Set({});
     for (bool* role : {&bot.tank, &bot.heal})
     {

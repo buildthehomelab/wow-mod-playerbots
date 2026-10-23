@@ -6,6 +6,7 @@
 
 #include "StockadeShared.h"
 
+#include "AttackersValue.h"
 #include "Creature.h"
 #include "Group.h"
 #include "MotionMaster.h"
@@ -38,12 +39,8 @@ constexpr float MELEE_FOCUS_RANGE = 12.0f;
 bool FocusAllowed(PlayerbotAI* botAI)
 {
     Player* bot = botAI->GetBot();
-    if (!sPlayerbotAIConfig.EnableStockadeMechanics || bot->GetMapId() != Stockade::MAP_ID || !bot->IsInCombat() ||
-        PlayerbotAI::IsTank(bot) || PlayerbotAI::IsHeal(bot) ||
-        !botAI->GetAiObjectContext()->GetValue<GuidVector>("prioritized targets")->Get().empty())
-        return false;
-    Group* group = bot->GetGroup();
-    return !group || !group->GetTargetIcon(7);
+    return sPlayerbotAIConfig.EnableStockadeMechanics && bot->GetMapId() == Stockade::MAP_ID && bot->IsInCombat() &&
+           !PlayerbotAI::IsTank(bot) && !PlayerbotAI::IsHeal(bot);
 }
 
 bool IsAssistRunner(Unit* target)
@@ -86,9 +83,29 @@ public:
 
 namespace Stockade
 {
-ObjectGuid FindFocus(PlayerbotAI* botAI)
+bool HasExplicitTarget(PlayerbotAI* botAI)
 {
     if (!FocusAllowed(botAI))
+        return false;
+    Player* bot = botAI->GetBot();
+    auto valid = [botAI, bot](ObjectGuid guid)
+    {
+        Unit* target = botAI->GetUnit(guid);
+        return target && AttackersValue::IsValidTarget(target, bot);
+    };
+    if (Group* group = bot->GetGroup())
+        if (valid(group->GetTargetIcon(7)))
+            return true;
+    GuidVector const priorities = botAI->GetAiObjectContext()->GetValue<GuidVector>("prioritized targets")->Get();
+    for (ObjectGuid const guid : priorities)
+        if (valid(guid))
+            return true;
+    return false;
+}
+
+ObjectGuid FindFocus(PlayerbotAI* botAI)
+{
+    if (!FocusAllowed(botAI) || HasExplicitTarget(botAI))
         return ObjectGuid::Empty;
     FocusSelector selector(botAI);
     GuidVector const attackers = botAI->GetAiObjectContext()->GetValue<GuidVector>("attackers")->Get();
@@ -100,7 +117,7 @@ ObjectGuid FindFocus(PlayerbotAI* botAI)
 
 Unit* GetFocus(PlayerbotAI* botAI)
 {
-    if (!FocusAllowed(botAI))
+    if (!FocusAllowed(botAI) || botAI->GetAiObjectContext()->GetValue<bool>("stockade explicit target")->Get())
         return nullptr;
     Unit* target = botAI->GetUnit(botAI->GetAiObjectContext()->GetValue<ObjectGuid>("stockade focus")->Get());
     if (!target || !target->IsCreature() || !target->IsAlive() || !target->IsInWorld() ||
@@ -112,5 +129,8 @@ Unit* GetFocus(PlayerbotAI* botAI)
     return botAI->GetBot()->IsWithinCombatRange(target, range) ? target : nullptr;
 }
 
-bool CanFocus(PlayerbotAI* botAI, Unit* target) { return FocusAllowed(botAI) && FocusSelector(botAI).Eligible(target); }
+bool CanFocus(PlayerbotAI* botAI, Unit* target)
+{
+    return FocusAllowed(botAI) && !HasExplicitTarget(botAI) && FocusSelector(botAI).Eligible(target);
+}
 }  // namespace Stockade
