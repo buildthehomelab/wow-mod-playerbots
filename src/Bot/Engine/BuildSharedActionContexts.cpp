@@ -11,6 +11,7 @@
 #include "BWLActionContext.h"
 #include "ChatActionContext.h"
 #include "EoEActionContext.h"
+#include "GnomereganContexts.h"
 #include "GruulActionContext.h"
 #include "HyjalActionContext.h"
 #include "ICCActionContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
+    actionContexts.Add(new GnomereganActionContext());
     actionContexts.Add(new ActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());

@@ -1,0 +1,40 @@
+entry,name,fixed_spawns,AIName,ScriptName,observed_spell_actions,coverage
+6206,Caverndeep Burrower,22,SmartAI,,7164:Defensive Stance; 16145:Sunder Armor,Sunder/Defensive Stance; new nearby DPS assist-runner focus in actual assistance/flee movement.
+6207,Caverndeep Ambusher,6,SmartAI,,2590:Backstab,Backstab; generic tank facing/rear positioning; assist-runner focus for fixed and Emi wave summons.
+6211,Caverndeep Reaver,16,SmartAI,,7366:Berserker Stance; 8374:Arcing Smash,Arcing Smash/stance; generic tank facing/rear melee; new actual assist-runner focus.
+6212,Dark Iron Agent,34,SmartAI,,11802:Dark Iron Land Mine,"Land Mine11802 summons8035; new numeric mine avoidance, no fictitious object trap."
+6215,Chomper,0,,,,Chomper summoned by Emi group4; no bound AI/spells; generic tank/add combat.
+6218,Irradiated Slime,8,SmartAI,,9459:Corrosive Ooze; 10341:Radiation Cloud,Radiation Cloud10341 dynamic area uses generic avoidance; Corrosive Ooze9459 magic stat debuff uses legal generic dispel.
+6219,Corrosive Lurker,5,SmartAI,,9459:Corrosive Ooze; 10341:Radiation Cloud,Radiation Cloud10341 dynamic area uses generic avoidance; Corrosive Ooze9459 magic stat debuff uses legal generic dispel.
+6220,Irradiated Horror,6,SmartAI,,8211:Chain Burn; 9459:Corrosive Ooze; 10341:Radiation Cloud,Chain Burn interrupt if legal; IP AddAura10341 not assumed dynamic floor; magic Corrosive Ooze uses generic cleanse.
+6222,Leprous Technician,24,SmartAI,,10348:Tune Up; 12024:Net; 13398:Throw Wrench,Net12024/Throw Wrench; generic legal recovery; Tune Up out of combat is not a party dispel.
+6223,Leprous Defender,9,SmartAI,,6660:Shoot; 14443:Multi-Shot,"Shoot/Multi-Shot; generic ranged combat, CC and healing; also summoned by Alert."
+6224,Leprous Machinesmith,26,SmartAI,,10348:Tune Up; 10732:Supercharge; 13398:Throw Wrench,"Supercharge/Tune Up/Throw Wrench; generic casts, interrupts when core-legal; no invented magic purge for dispel-type0 buffs."
+6225,Mechano-Tank,7,SmartAI,,10346:Machine Gun,Machine Gun; preserve generic interrupt/LOS/class behavior.
+6226,Mechano-Flamewalker,8,SmartAI,,10733:Flame Spray; 11306:Fire Nova,Fire Nova11306 is instant in saved DBC; Flame Spray frontal cast. Generic tank facing/rear melee/interrupts; no invented windup/floor.
+6227,Mechano-Frostwalker,8,SmartAI,,10737:Hail Storm; 11264:Ice Blast,"Ice Blast magic root and Hail Storm10737->10734 periodic self-origin damage; new aura-present radius escape, generic root recovery."
+6228,Dark Iron Ambassador,1,SmartAI,,184:Fire Shield II; 9053:Fireball; 10870:Summon Burning Servant; 12544:Frost Armor,"Rare source retains Fireball/Frost Armor/Fire Shield and servant summons but current live AI initializes despawn500ms. Record source definition, not observed active rare behavior."
+6229,Crowd Pummeler 9-60,1,SmartAI,,5568:Trample; 8374:Arcing Smash; 10887:Crowd Pummel,"Instant Crowd Pummel/Trample/frontal Arcing Smash; generic tank facing, rear melee and ranged positioning. No invented cast escape."
+6230,Peacekeeper Security Suit,4,SmartAI,,6533:Net; 10730:Pacify,"Net6533 physical undispellable root (dispel0), Pacify10730 magic; generic core-legal recovery/cleanse."
+6232,Arcane Nullifier X-21,7,SmartAI,,10831:Reflection Field; 10832:Mass Nullify,"Reflection Field10831 and Mass Nullify10832; reuse shared core-legal reflect multiplier behind local cached/runtime gates, preserve non-reflected class actions."
+6233,Mechanized Sentry,30,,,,No bound combat AI/spells; generic tank/DPS/heal.
+6234,Mechanized Guardian,17,SmartAI,,11825:Electrified Net,"Electrified Net magic root; generic learned cleanse/root recovery, without suppressing recovery spells."
+6235,Electrocutioner 6000,1,SmartAI,,11082:Megavolt; 11084:Shock; 11085:Chain Bolt,"Shock/Megavolt/Chain Bolt; generic legal interrupts, healing and role spacing. No invented persistent floor."
+6329,Irradiated Pillager,46,SmartAI,,8269:Frenzy; 9771:Radiation Bolt; 9798:Radiation; 21862:Radiation,"Radiation aura and bolt9771; script prevents triggered irradiation80% of hits. Frenzy8269 is dispel-type0, not invented enrage purge."
+6391,Holdout Warrior,7,SmartAI,,11976:Strike; 12555:Pummel,"Strike/Pummel and feign-death spawn overrides30321/30322; generic class behavior, actual assist-runner focus only on valid engaged hostile."
+6392,Holdout Medic,4,SmartAI,,13864:Power Word: Fortitude; 22167:Heal; 22168:Renew,"Heal/Renew/Fortitude, friendly holdout faction; generic legal healing/interrupt/purge rules on actual relations; actual assist-runner focus only on valid hostile targets."
+6407,Holdout Technician,3,SmartAI,,6660:Shoot; 8858:Bomb,"Bomb8858 and Shoot; generic legal interrupt/healing, actual assist-runner focus."
+7079,Viscous Fallout,1,SmartAI,,9459:Corrosive Ooze; 10341:Radiation Cloud; 21687:Toxic Volley,Toxic Volley poison cleanse when available; Radiation Cloud10341 persistent-area cast uses generic dynamic-object avoidance; IP AddAura alone is not assumed floor.
+7266,Ember,0,,,,Ember recursively summoned by Burning Servant; no bound AI/spells; ordinary add combat.
+7361,Grubbis,0,SmartAI,,,Grubbis summoned by Emi group4; death SetData0 DONE and encounter kill7361. DC holds persistent objective until real loaded encounter bit completes.
+7603,Leprous Assistant,92,SmartAI,,12024:Net,Net12024 generic recovery; fixed and Alert-summoned assistant.
+7738,Burning Servant,0,SmartAI,,10869:Summon Embers,Burning Servant10870 summon; recursively summons three Ember7266 via10869; ordinary add combat.
+7800,Mekgineer Thermaplugg,1,SmartAI,,10101:Knock Away; 11511:Activate Bomb A,Knock Away threat reduction handled by generic tanks;11511 links server11518 activating faces; buttons close active faces; ranged focus/avoid Walking Bombs.
+7849,Mobile Alert System,5,SmartAI,,,Stationary Alert repeatedly summons7603 and6223 after ten seconds; new nearby DPS focus. No invented assist-runner state.
+7850,Kernobee,1,,npc_kernobee,,A Fine Mess2904; core accept handler follows quest owner and credits at entrance. No new automatic quest acceptance.
+7897,Alarm-a-bomb 2600,1,,,,"Alarm-a-bomb fixed friendly/quest actor, no bound AI; not Walking Bomb7915."
+7915,Walking Bomb,0,SmartAI,,11504:Walking Bomb Effect,"Walking Bomb from active faces; falls, acquires player and explodes11504 in victim range0-5; new ranged focus and all-role local escape, distinct from7897."
+7998,Blastmaster Emi Shortfuse,1,SmartAI,,11542:Red Streaks Firework; 12158:Explosion; 12159:Explosion,Gossip1080 option0 starts path7998; groups1-4 summon Ambushers then Grubbis/Chomper; new DC persistent escort protects through Grubbis kill credit.
+8035,Dark Iron Land Mine,0,SmartAI,,4043:Detonation; 11816:Land Mine Arming,Dark Iron Land Mine from11802; arms for ten seconds then detonation4043 within0-6 and despawns. Avoid numeric creature throughout arming and armed lifetime.
+9676,Tink Sprocketwhistle,1,SmartAI,,,Vendor/neutral actor with assist flee; only actual valid engaged attacker can be focused.
+13876,Mekgineer Trigger,1,,,,"Mekgineer Trigger, no bound AI; not an invented harmful floor."

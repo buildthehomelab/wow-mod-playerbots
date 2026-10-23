@@ -14,6 +14,7 @@
 #include "DTKStrategy.h"
 #include "FoSStrategy.h"
 #include "GDStrategy.h"
+#include "GnomereganStrategy.h"
 #include "HoLStrategy.h"
 #include "HoSStrategy.h"
 #include "MechStrategy.h"
@@ -22,8 +23,8 @@
 #include "OCStrategy.h"
 #include "PoSStrategy.h"
 #include "RampStrategy.h"
-#include "SethStrategy.h"
 #include "SMStrategy.h"
+#include "SethStrategy.h"
 #include "Strategy.h"
 #include "TOCStrategy.h"
 #include "UBStrategy.h"
@@ -36,6 +37,7 @@ class DungeonStrategyContext : public NamedObjectContext<Strategy>
 public:
     DungeonStrategyContext() : NamedObjectContext<Strategy>(false, true)
     {
+        creators["vanilla-gnomeregan"] = &DungeonStrategyContext::gnomeregan;
         // Vanilla
         creators["vanilla-sm"] = &DungeonStrategyContext::vanilla_sm;   // Scarlet Monastery
 
@@ -66,6 +68,7 @@ public:
     }
 
 private:
+    static Strategy* gnomeregan(PlayerbotAI* botAI) { return new GnomereganStrategy(botAI); }
     static Strategy* vanilla_sm(PlayerbotAI* botAI) { return new VanillaDungeonScarletMonasteryStrategy(botAI); }
     static Strategy* tbc_ac(PlayerbotAI* botAI) { return new TbcDungeonAuchenaiCryptsStrategy(botAI); }
     static Strategy* tbc_seth(PlayerbotAI* botAI) { return new TbcDungeonSethekkHallsStrategy(botAI); }
