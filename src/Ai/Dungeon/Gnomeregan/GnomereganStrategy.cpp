@@ -38,6 +38,15 @@ public:
             dynamic_cast<AvoidAoeAction*>(action) || dynamic_cast<FleeAction*>(action) ||
             dynamic_cast<FleeWithPetAction*>(action) || dynamic_cast<RunAwayAction*>(action))
             return 1.0f;
+        if (!context->GetValue<bool>("gnomeregan hazard")->Get())
+        {
+            Unit* hostile = context->GetValue<Unit*>("current target")->Get();
+            bool const towardHostile = hostile && bot->IsValidAttackTarget(hostile) &&
+                                       (action->GetTarget() == hostile || dynamic_cast<TankFaceAction*>(action) ||
+                                        dynamic_cast<SetBehindTargetAction*>(action));
+            if (!towardHostile)
+                return 1.0f;
+        }
         return context->GetValue<bool>("gnomeregan block approach")->Get() ? 0.0f : 1.0f;
     }
 };

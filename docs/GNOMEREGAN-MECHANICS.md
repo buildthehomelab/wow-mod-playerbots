@@ -123,7 +123,8 @@ preserves a useful spline,throttles failures500ms and defers before CastStop whe
 immobile. Failed planner/path requests preserve casts/movement. Cast-gated
 accepted PointMovement is allowed to launch on next update; stale spline data is
 not read as the new path. Generic approach movement is blocked while threatened
-or when the current target is inside a known area; shared escape,casts,attacks,
+or when moving toward a hostile current target inside a known area; safe healing/
+resurrection movement toward other allies is retained; shared escape,casts,attacks,
 manual acquisition and charm cleanup remain available.
 
 Source-execution tests compile actual encounter code against engine doubles with

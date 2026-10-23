@@ -95,6 +95,32 @@ int main()
     assert(bot.deferredMove);
     bot.MovementUpdate();
     assert(!bot.movespline->Finalized());
+    // A safe healer may approach an ally while the hostile target remains in the mine.
+    bot.x = 20;
+    ai.context.GetValue<Unit*>("current target")->Set(&mine);
+    Player ally(9);
+    ally.map = 90;
+    ally.x = 25;
+    ai.context.GetValue<Unit*>("party member to heal")->Set(&ally);
+    ai.context.GetValue<Unit*>("party member to resurrect")->Set(&ally);
+    clockNow += 600;
+    ReachPartyMemberToHealAction reachHeal(&ai);
+    ReachPartyMemberToResurrectAction reachResurrect(&ai);
+    TankFaceAction tankFace(&ai);
+    SetBehindTargetAction behind(&ai);
+    assert(movement.GetValue(&reachHeal) == 1.0f);
+    assert(movement.GetValue(&reachResurrect) == 1.0f);
+    assert(movement.GetValue(&approach) == 0.0f);
+    assert(movement.GetValue(&tankFace) == 0.0f);
+    assert(movement.GetValue(&behind) == 0.0f);
+    bot.x = 2;
+    clockNow += 600;
+    assert(movement.GetValue(&reachHeal) == 0.0f);
+    assert(movement.GetValue(&escape) == 1.0f);
+    auto overlap = hazards;
+    overlap.push_back({Position{6, 0, 0}, 13});
+    assert(!Gnomeregan::SafeProgress(overlap, Position{2, 0, 0}, Position{7, 0, 0}));
+    assert(Gnomeregan::SafeProgress(overlap, Position{2, 0, 0}, Position{2, 5, 0}));
     mine.alive = false;
     assert(Gnomeregan::CollectHazards(&ai).empty());
     GameObject button, face;
@@ -115,6 +141,24 @@ int main()
     bot.heal = true;
     assert(!Gnomeregan::FindButton(&ai));
     bot.heal = false;
+    for (auto const [buttonEntry, faceEntry] : std::vector<std::pair<uint32, uint32>>{{142214, 142211},
+                                                                                      {142215, 142210},
+                                                                                      {142216, 142209},
+                                                                                      {142217, 142208},
+                                                                                      {142218, 142213},
+                                                                                      {142219, 142212}})
+    {
+        button.entry = buttonEntry;
+        face.entry = faceEntry;
+        assert(Gnomeregan::GetButton(&ai, button.guid) == &button);
+    }
+    alert.cc = true;
+    mine.alive = false;
+    for (uint32 entry : {6206u, 6207u, 6211u, 6391u, 6392u, 6407u, 9676u})
+    {
+        runner.entry = entry;
+        assert(Gnomeregan::FindFocus(&ai) == runner.guid);
+    }
     sPlayerbotAIConfig.EnableGnomereganMechanics = false;
     assert(!Gnomeregan::GetButton(&ai, button.guid));
     assert(Gnomeregan::CollectHazards(&ai).empty());

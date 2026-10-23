@@ -670,3 +670,22 @@ struct RunAwayAction : MovementAction
 {
     using MovementAction::MovementAction;
 };
+
+struct ReachPartyMemberToHealAction : MovementAction
+{
+    using MovementAction::MovementAction;
+    Unit* GetTarget() override { return context->GetValue<Unit*>("party member to heal")->Get(); }
+};
+struct ReachPartyMemberToResurrectAction : MovementAction
+{
+    using MovementAction::MovementAction;
+    Unit* GetTarget() override { return context->GetValue<Unit*>("party member to resurrect")->Get(); }
+};
+struct TankFaceAction : MovementAction
+{
+    using MovementAction::MovementAction;
+};
+struct SetBehindTargetAction : MovementAction
+{
+    using MovementAction::MovementAction;
+};
