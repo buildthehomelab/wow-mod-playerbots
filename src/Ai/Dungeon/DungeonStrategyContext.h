@@ -22,14 +22,15 @@
 #include "OCStrategy.h"
 #include "PoSStrategy.h"
 #include "RampStrategy.h"
-#include "SethStrategy.h"
 #include "SMStrategy.h"
+#include "SethStrategy.h"
 #include "Strategy.h"
 #include "TOCStrategy.h"
 #include "UBStrategy.h"
 #include "UKStrategy.h"
 #include "UPStrategy.h"
 #include "VHStrategy.h"
+#include "WailingCavernsStrategy.h"
 
 class DungeonStrategyContext : public NamedObjectContext<Strategy>
 {
@@ -37,6 +38,7 @@ public:
     DungeonStrategyContext() : NamedObjectContext<Strategy>(false, true)
     {
         // Vanilla
+        creators["vanilla-wailing-caverns"] = &DungeonStrategyContext::wailing_caverns;
         creators["vanilla-sm"] = &DungeonStrategyContext::vanilla_sm;   // Scarlet Monastery
 
         // Burning Crusade
@@ -66,6 +68,7 @@ public:
     }
 
 private:
+    static Strategy* wailing_caverns(PlayerbotAI* botAI) { return new WailingCavernsStrategy(botAI); }
     static Strategy* vanilla_sm(PlayerbotAI* botAI) { return new VanillaDungeonScarletMonasteryStrategy(botAI); }
     static Strategy* tbc_ac(PlayerbotAI* botAI) { return new TbcDungeonAuchenaiCryptsStrategy(botAI); }
     static Strategy* tbc_seth(PlayerbotAI* botAI) { return new TbcDungeonSethekkHallsStrategy(botAI); }

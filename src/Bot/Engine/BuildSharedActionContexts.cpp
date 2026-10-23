@@ -28,6 +28,7 @@
 #include "UldActionContext.h"
 #include "VanillaDungeonActionContext.h"
 #include "VoAActionContext.h"
+#include "WailingCavernsContexts.h"
 #include "WorldPacketActionContext.h"
 #include "WotlkDungeonActionContext.h"
 #include "ZAActionContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
+    actionContexts.Add(new WailingCavernsActionContext());
     actionContexts.Add(new ActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());
