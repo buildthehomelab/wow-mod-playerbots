@@ -5,6 +5,7 @@
  */
 
 #include "ActionContext.h"
+#include "ShadowfangContexts.h"
 #include "AiObjectContext.h"
 #include "Aq20ActionContext.h"
 #include "BTActionContext.h"
@@ -36,6 +37,7 @@ void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
     actionContexts.Add(new ActionContext());
+    actionContexts.Add(new ShadowfangActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());
     actionContexts.Add(new RaidAq20ActionContext());
