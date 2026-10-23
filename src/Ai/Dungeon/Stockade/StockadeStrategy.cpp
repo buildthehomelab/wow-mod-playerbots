@@ -6,7 +6,6 @@
 
 #include "StockadeStrategy.h"
 
-#include "PlayerbotAIConfig.h"
 #include "Playerbots.h"
 #include "StockadeActions.h"
 #include "StockadeShared.h"
@@ -30,14 +29,10 @@ public:
 
 void StockadeStrategy::InitTriggers(std::vector<TriggerNode*>& triggers)
 {
-    if (!sPlayerbotAIConfig.EnableStockadeMechanics)
-        return;
     triggers.push_back(new TriggerNode("stockade focus", {NextAction("stockade focus", ACTION_RAID + 1)}));
 }
 
 void StockadeStrategy::InitMultipliers(std::vector<Multiplier*>& multipliers)
 {
-    if (!sPlayerbotAIConfig.EnableStockadeMechanics)
-        return;
     multipliers.push_back(new StockadeFocusMultiplier(botAI));
 }

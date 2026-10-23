@@ -33,16 +33,19 @@ int main()
     std::vector<Multiplier*> multipliers;
     strategy.InitTriggers(triggers);
     strategy.InitMultipliers(multipliers);
-    assert(triggers.empty() && multipliers.empty() && !Stockade::FindFocus(&ai));
+    assert(triggers.size() == 1 && multipliers.size() == 1 && !Stockade::FindFocus(&ai));
+    StockadeFocusTrigger disabledTrigger(&ai);
+    AttackAction disabledAttack(&ai, "attack anything");
+    assert(!disabledTrigger.IsActive() && multipliers[0]->GetValue(&disabledAttack) == 1);
+    // Reload changes the config without rebuilding existing engine hooks.
     sPlayerbotAIConfig.EnableStockadeMechanics = true;
-    strategy.InitTriggers(triggers);
-    strategy.InitMultipliers(multipliers);
     assert(triggers.size() == 1 && multipliers.size() == 1);
     StockadeActionContext actions;
     StockadeTriggerContext triggerContext;
     assert(actions.creators.contains(triggers[0]->actions[0].name));
     assert(triggerContext.creators.contains(triggers[0]->name));
     assert(Stockade::FindFocus(&ai) == ward.guid);
+    assert(disabledTrigger.IsActive());
     for (uint32 entry : {1663u, 1666u, 1706u, 1707u, 1708u, 1711u, 1715u, 1716u, 1720u})
     {
         ward.entry = entry;

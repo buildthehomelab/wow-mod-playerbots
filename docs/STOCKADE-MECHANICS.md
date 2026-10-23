@@ -88,7 +88,9 @@ record their priority, duel selection, melee, class spells, interrupts,
 dispels, recovery and healing. Assistance movement may be passive; passive fear
 fallback is excluded. No new snare/CC spell selection or movement planner is added.
 The strategy is added and removed through ApplyInstanceStrategies for map 34.
-Default-off setup adds only normal context/strategy registration overhead.
+Hooks register unconditionally so config reload works on existing engines.
+Runtime config gates keep disabled hooks inert; default-off setup adds normal
+registration and cheap gated checks, with no candidate scans.
 
 References to other dungeon PRs are design context, not dependencies. The local
 WC runner implementation supplies the same GPLv2 focus pattern; this branch
