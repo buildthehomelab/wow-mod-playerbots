@@ -3253,3 +3253,8 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Opt into Ragefire Chasm Fire Nova escape and nearby DPS runner focus.
+# Generic interrupts, dispels, CC and role positioning remain available. Default off.
+# Set before instance strategies initialize; see docs/RAGEFIRE-MECHANICS.md.
+Playerbots.EnableRagefireMechanics = 0

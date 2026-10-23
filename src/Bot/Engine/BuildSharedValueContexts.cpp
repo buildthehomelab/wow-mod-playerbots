@@ -4,6 +4,7 @@
  * or (at your option) any later version.
  */
 
+#include "RagefireContexts.h"
 #include "AiObjectContext.h"
 #include "GDValueContext.h"
 #include "GruulValueContext.h"
@@ -20,6 +21,7 @@
 void AiObjectContext::BuildSharedValueContexts(
     SharedNamedObjectContextList<UntypedValue>& valueContexts)
 {
+    valueContexts.Add(new RagefireValueContext());
     valueContexts.Add(new ValueContext());
     valueContexts.Add(new RaidGruulsLairValueContext());
     valueContexts.Add(new RaidHyjalValueContext());

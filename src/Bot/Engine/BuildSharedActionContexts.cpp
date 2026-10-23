@@ -4,6 +4,7 @@
  * or (at your option) any later version.
  */
 
+#include "RagefireContexts.h"
 #include "ActionContext.h"
 #include "AiObjectContext.h"
 #include "Aq20ActionContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
+    actionContexts.Add(new RagefireActionContext());
     actionContexts.Add(new ActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());

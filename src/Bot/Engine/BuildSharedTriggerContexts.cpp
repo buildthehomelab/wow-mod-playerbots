@@ -4,6 +4,7 @@
  * or (at your option) any later version.
  */
 
+#include "RagefireContexts.h"
 #include "AiObjectContext.h"
 #include "Aq20TriggerContext.h"
 #include "BTTriggerContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedTriggerContexts(
     SharedNamedObjectContextList<Trigger>& triggerContexts)
 {
+    triggerContexts.Add(new RagefireTriggerContext());
     triggerContexts.Add(new TriggerContext());
     triggerContexts.Add(new ChatTriggerContext());
     triggerContexts.Add(new WorldPacketTriggerContext());
