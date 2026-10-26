@@ -3282,3 +3282,7 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Gnomeregan: nearby DPS runner/alert/bomb focus, mine/hail avoidance,
+# bomb shutdown buttons and core-legal spell-reflect protection. Off by default.
+Playerbots.EnableGnomereganMechanics = 0

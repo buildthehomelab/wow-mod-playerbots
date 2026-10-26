@@ -477,6 +477,7 @@ bool PlayerbotAIConfig::Initialize()
     NonCombatStrategies = sConfigMgr->GetOption<std::string>("Playerbots.NonCombatStrategies", "");
     ReactStrategies = sConfigMgr->GetOption<std::string>("Playerbots.ReactStrategies", "");
     RandomBotReactStrategies = sConfigMgr->GetOption<std::string>("Playerbots.RandomBotReactStrategies", "");
+    EnableGnomereganMechanics = sConfigMgr->GetOption<bool>("Playerbots.EnableGnomereganMechanics", false);
     ApplyInstanceStrategies = sConfigMgr->GetOption<bool>("Playerbots.ApplyInstanceStrategies", true);
 
     CommandPrefix = sConfigMgr->GetOption<std::string>("Playerbots.CommandPrefix", "");
