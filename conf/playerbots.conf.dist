@@ -3282,3 +3282,8 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Opt into Shadowfang Keep charm protection/decurse and Apothecary hazard escape.
+# Preserve generic class AI; default off. Set before instance initialization.
+# See docs/SHADOWFANG-MECHANICS.md for scope and validation limits.
+Playerbots.EnableShadowfangMechanics = 0

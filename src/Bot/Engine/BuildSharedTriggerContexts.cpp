@@ -5,6 +5,7 @@
  */
 
 #include "AiObjectContext.h"
+#include "ShadowfangContexts.h"
 #include "Aq20TriggerContext.h"
 #include "BTTriggerContext.h"
 #include "BWLTriggerContext.h"
@@ -36,6 +37,7 @@ void AiObjectContext::BuildSharedTriggerContexts(
     SharedNamedObjectContextList<Trigger>& triggerContexts)
 {
     triggerContexts.Add(new TriggerContext());
+    triggerContexts.Add(new ShadowfangTriggerContext());
     triggerContexts.Add(new ChatTriggerContext());
     triggerContexts.Add(new WorldPacketTriggerContext());
     triggerContexts.Add(new RaidAq20TriggerContext());
