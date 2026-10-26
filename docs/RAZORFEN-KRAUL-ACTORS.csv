@@ -1,0 +1,50 @@
+entry,actor,fixed_spawn_rows,AIName,ScriptName,cast_spells,template_aura,assist_runner,response
+2630,Earthbind Totem,0,,,6474:Earthbind Totem Passive,,False,generic role/class AI; engaged-owner DPS totem focus
+2992,Healing Ward V,0,,,4972:Healing Ward V Passive,,False,generic role/class AI; engaged-owner DPS totem focus
+4420,Overlord Ramtusk,1,SmartAI,,9128:Battle Shout;15548:Thunderclap,7165,False,generic role/class AI
+4421,Charlga Razorflank,1,SmartAI,,6077:Renew;8292:Chain Bolt;8358:Mana Spike;8361:Purity,None,False,generic role/class AI
+4422,Agathelos the Raging,1,SmartAI,,8269:Frenzy;8285:Rampage;8555:Left for Dead,None,False,generic role/class AI
+4424,Aggem Thorncurse,1,SmartAI,,6192:Battle Shout;8286:Summon Boar Spirit;14900:Chain Heal,None,False,generic role/class AI
+4425,Blind Hunter,1,SmartAI,,12553:Shock,None,False,generic role/class AI
+4427,Ward Guardian,2,SmartAI,,959:Healing Wave;8400:Fireball,None,True,generic role/class AI; nearby DPS assist-runner focus
+4428,Death Speaker Jargba,1,SmartAI,,9613:Shadow Bolt;14515:Dominate Mind,None,False,generic role/class AI; shared charm containment/recovery and ally/pet cleanup
+4435,Razorfen Warrior,2,SmartAI,,9128:Battle Shout,None,True,generic role/class AI; nearby DPS assist-runner focus
+4436,Razorfen Quilguard,10,SmartAI,,7165:Battle Stance;15548:Thunderclap,7165,True,generic role/class AI; nearby DPS assist-runner focus
+4437,Razorfen Warden,7,SmartAI,,6533:Net,None,True,generic role/class AI; nearby DPS assist-runner focus
+4438,Razorfen Spearhide,2,SmartAI,,8148:Thorns Aura;8259:Whirling Barrage,None,True,generic role/class AI; nearby DPS assist-runner focus; cast-only Whirling Barrage escape
+4440,Razorfen Totemic,4,SmartAI,,4971:Healing Ward;8376:Earthgrab Totem,None,True,generic role/class AI; nearby DPS assist-runner focus
+4442,Razorfen Defender,19,SmartAI,,3248:Improved Blocking;7164:Defensive Stance;11972:Shield Bash,None,True,generic role/class AI; nearby DPS assist-runner focus
+4508,Willix the Importer,1,SmartAI,,,None,False,generic role/class AI; optional active owned quest escort protection in DC
+4510,Heralath Fallowbrook,1,,,,None,False,generic role/class AI; quest-script-owned
+4511,Agam'ar,15,SmartAI,,6268:Rushing Charge,None,False,generic role/class AI
+4512,Rotting Agam'ar,4,SmartAI,,8267:Cursed Blood,None,False,generic role/class AI
+4514,Raging Agam'ar,15,SmartAI,,8269:Frenzy,None,False,generic role/class AI
+4515,Death's Head Acolyte,2,SmartAI,,8362:Renew;15785:Mana Burn,None,True,generic role/class AI; nearby DPS assist-runner focus
+4516,Death's Head Adept,9,SmartAI,,113:Chains of Ice;9672:Frostbolt,None,True,generic role/class AI; nearby DPS assist-runner focus
+4517,Death's Head Priest,4,SmartAI,,1245:Power Word: Fortitude;6063:Heal;9613:Shadow Bolt,None,True,generic role/class AI; nearby DPS assist-runner focus
+4518,Death's Head Sage,7,SmartAI,,4971:Healing Ward;8262:Elemental Protection Totem,None,True,generic role/class AI; nearby DPS assist-runner focus
+4519,Death's Head Seer,5,SmartAI,,4971:Healing Ward;8264:Lava Spout Totem,None,True,generic role/class AI; nearby DPS assist-runner focus
+4520,Razorfen Geomancer,4,SmartAI,,8270:Summon Earth Rumbler;9532:Lightning Bolt,None,True,generic role/class AI; nearby DPS assist-runner focus
+4522,Razorfen Dustweaver,3,SmartAI,,6728:Enveloping Winds;8271:Summon Wind Howler,None,True,generic role/class AI; nearby DPS assist-runner focus
+4523,Razorfen Groundshaker,7,SmartAI,,6524:Ground Tremor;8046:Earth Shock,None,True,generic role/class AI; nearby DPS assist-runner focus
+4525,Razorfen Earthbreaker,5,SmartAI,,8046:Earth Shock;8272:Mind Tremor,None,True,generic role/class AI; nearby DPS assist-runner focus
+4526,Wind Howler,0,,,,None,False,generic role/class AI
+4528,Stone Rumbler,0,,,,None,False,generic role/class AI
+4530,Razorfen Handler,4,SmartAI,,6660:Shoot;8274:Summon Tamed Battleboar,None,True,generic role/class AI; nearby DPS assist-runner focus
+4531,Razorfen Beast Trainer,2,SmartAI,,6660:Shoot;6984:Frost Shot;8274:Summon Tamed Battleboar,None,True,generic role/class AI; nearby DPS assist-runner focus
+4532,Razorfen Beastmaster,3,SmartAI,,6660:Shoot;8275:Poisoned Shot;8276:Summon Tamed Hyena,None,True,generic role/class AI; nearby DPS assist-runner focus
+4534,Tamed Hyena,0,,,,None,False,generic role/class AI
+4535,Tamed Battleboar,0,SmartAI,,6268:Rushing Charge,None,False,generic role/class AI
+4538,Kraul Bat,13,SmartAI,,12553:Shock,None,False,generic role/class AI
+4539,Greater Kraul Bat,6,SmartAI,,8281:Sonic Burst,None,False,generic role/class AI
+4541,Blood of Agamaggan,4,SmartAI,,8282:Curse of Blood,None,False,generic role/class AI
+4623,Quilguard Champion,17,SmartAI,,7164:Defensive Stance;8258:Devotion Aura;15572:Sunder Armor,None,True,generic role/class AI; nearby DPS assist-runner focus
+4625,Death's Head Ward Keeper,2,SmartAI,,7083:Quillboar Channeling,None,False,generic role/class AI
+4781,Snufflenose Gopher,0,SmartAI,,,,False,generic role/class AI; quest-script-owned
+4842,Earthcaller Halmgar,1,SmartAI,,2484:Earthbind Totem;8270:Summon Earth Rumbler;9532:Lightning Bolt,,True,generic role/class AI; nearby DPS assist-runner focus
+6016,Elemental Protection Totem,0,,,8263:Elemental Protection Totem Aura,,False,generic role/class AI; engaged-owner DPS totem focus
+6017,Lava Spout Totem,0,,,8266:Lava Spout Totem Passive,,False,generic role/class AI; engaged-owner DPS totem focus
+6021,Boar Spirit,0,,,,,False,generic role/class AI
+6035,Razorfen Stalker,4,SmartAI,,7159:Backstab;22766:Sneak,None,True,generic role/class AI; nearby DPS assist-runner focus
+6066,Earthgrab Totem,0,SmartAI,,8377:Earthgrab,,False,generic role/class AI; engaged-owner DPS totem focus
+6168,Roogug,1,SmartAI,,9532:Lightning Bolt,None,False,generic role/class AI
