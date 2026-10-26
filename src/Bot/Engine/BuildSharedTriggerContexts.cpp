@@ -4,6 +4,10 @@
  * or (at your option) any later version.
  */
 
+#include "RazorfenKraulContexts.h"
+#include "RazorfenKraulAvoidanceContexts.h"
+#include "RazorfenKraulCharm.h"
+
 #include "AiObjectContext.h"
 #include "Aq20TriggerContext.h"
 #include "BTTriggerContext.h"
@@ -35,6 +39,9 @@
 void AiObjectContext::BuildSharedTriggerContexts(
     SharedNamedObjectContextList<Trigger>& triggerContexts)
 {
+    triggerContexts.Add(new RazorfenKraulTriggerContext());
+    triggerContexts.Add(new RazorfenKraulAvoidanceTriggerContext());
+    triggerContexts.Add(new RazorfenKraulCharmTriggerContext());
     triggerContexts.Add(new TriggerContext());
     triggerContexts.Add(new ChatTriggerContext());
     triggerContexts.Add(new WorldPacketTriggerContext());

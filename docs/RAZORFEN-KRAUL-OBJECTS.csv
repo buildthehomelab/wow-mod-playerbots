@@ -1,0 +1,32 @@
+entry,object,spawn_rows,type,AIName,ScriptName,response
+1621,Briarthorn,6,3,,,generic loot/resource/transport interaction
+1734,Gold Vein,1,3,,,generic loot/resource/transport interaction
+1735,Iron Deposit,3,3,,,generic loot/resource/transport interaction
+2042,Fadeleaf,2,3,,,generic loot/resource/transport interaction
+11898,Mesa Elevator,1,11,,,generic loot/resource/transport interaction
+11899,Mesa Elevator,1,11,,,generic loot/resource/transport interaction
+20919,Tuber Node,15,8,,,optional Blueleaf quest gopher/command/respawn chain; no forced activation
+20920,Blueleaf Tuber,15,3,SmartGameObjectAI,,optional Blueleaf quest gopher/command/respawn chain; no forced activation
+21099,ward,1,0,SmartGameObjectAI,,script opens only after no Ward Keepers4625 within50; never force-open
+69421,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69422,Bonfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69423,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69424,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69425,Bonfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69426,Bonfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69427,Bonfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69428,Bonfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69429,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69430,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69431,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69432,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69433,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69434,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69435,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69436,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69437,Campfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+69438,Bonfire,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+74075,Cauldron,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+74076,Cauldron,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+74078,Cauldron,1,8,,go_flames,core periodic point-contact fire; avoid standing on campfire; no invented large floor
+74447,Large Iron Bound Chest,2,3,,,generic loot/resource/transport interaction

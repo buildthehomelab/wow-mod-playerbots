@@ -104,6 +104,7 @@ public:
     bool IsInPvpProhibitedZone(uint32 id);
     bool IsInPvpProhibitedArea(uint32 id);
 
+    bool EnableRazorfenKraulMechanics;
     bool Enabled;
     bool DisabledWithoutRealPlayer;
     bool EnableICCBuffs;

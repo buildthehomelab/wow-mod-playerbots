@@ -4,6 +4,10 @@
  * or (at your option) any later version.
  */
 
+#include "RazorfenKraulContexts.h"
+#include "RazorfenKraulAvoidanceContexts.h"
+#include "RazorfenKraulCharm.h"
+
 #include "AiObjectContext.h"
 #include "GDValueContext.h"
 #include "GruulValueContext.h"
@@ -20,6 +24,9 @@
 void AiObjectContext::BuildSharedValueContexts(
     SharedNamedObjectContextList<UntypedValue>& valueContexts)
 {
+    valueContexts.Add(new RazorfenKraulValueContext());
+    valueContexts.Add(new RazorfenKraulAvoidanceValueContext());
+    valueContexts.Add(new RazorfenKraulCharmValueContext());
     valueContexts.Add(new ValueContext());
     valueContexts.Add(new RaidGruulsLairValueContext());
     valueContexts.Add(new RaidHyjalValueContext());

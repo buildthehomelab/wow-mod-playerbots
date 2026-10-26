@@ -3267,3 +3267,7 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Opt-in Razorfen Kraul runner/totem focus, Whirling Barrage/contact-fire escape and charm responses.
+# Preserves generic class spell selection; disabled by default.
+Playerbots.EnableRazorfenKraulMechanics = 0

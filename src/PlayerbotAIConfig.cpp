@@ -81,6 +81,7 @@ bool PlayerbotAIConfig::Initialize()
 {
     LOG_INFO("server.loading", "Initializing mod-playerbots, based on AI Playerbots by ike3 and the original Playerbots by blueboy");
 
+    EnableRazorfenKraulMechanics = sConfigMgr->GetOption<bool>("Playerbots.EnableRazorfenKraulMechanics", false);
     Enabled = sConfigMgr->GetOption<bool>("Playerbots.Enabled", true);
     if (!Enabled)
     {

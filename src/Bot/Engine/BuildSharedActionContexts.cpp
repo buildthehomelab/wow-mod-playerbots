@@ -4,6 +4,10 @@
  * or (at your option) any later version.
  */
 
+#include "RazorfenKraulContexts.h"
+#include "RazorfenKraulAvoidanceContexts.h"
+#include "RazorfenKraulCharm.h"
+
 #include "ActionContext.h"
 #include "AiObjectContext.h"
 #include "Aq20ActionContext.h"
@@ -35,6 +39,9 @@
 void AiObjectContext::BuildSharedActionContexts(
     SharedNamedObjectContextList<Action>& actionContexts)
 {
+    actionContexts.Add(new RazorfenKraulActionContext());
+    actionContexts.Add(new RazorfenKraulAvoidanceActionContext());
+    actionContexts.Add(new RazorfenKraulCharmActionContext());
     actionContexts.Add(new ActionContext());
     actionContexts.Add(new ChatActionContext());
     actionContexts.Add(new WorldPacketActionContext());
