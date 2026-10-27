@@ -1,0 +1,35 @@
+entry,name,fixed_spawn_rows,rank,AIName,ScriptName,cast_ids,assist_runner,response
+4787,Argent Guard Thaelrid,1,0,,,,False,see complete response matrix
+4798,Fallenroot Shadowstalker,14,1,SmartAI,,5916;6205,False,see complete response matrix
+4799,Fallenroot Hellcaller,11,1,SmartAI,,8129;9613,False,see complete response matrix
+4805,Blackfathom Sea Witch,30,1,SmartAI,,122;6143;12544,True,see complete response matrix
+4807,Blackfathom Myrmidon,27,1,SmartAI,,8379,True,see complete response matrix
+4809,Twilight Acolyte,3,1,SmartAI,,2055;8362,True,see complete response matrix
+4810,Twilight Reaver,11,1,SmartAI,,8374,True,see complete response matrix
+4811,Twilight Aquamancer,7,1,SmartAI,,8372;9672,True,see complete response matrix
+4812,Twilight Loreseeker,8,1,SmartAI,,8365;18972,True,see complete response matrix
+4813,Twilight Shadowmage,7,1,SmartAI,,7645;9613;12746,True,see complete response matrix
+4814,Twilight Elementalist,6,1,SmartAI,,11824;12548;13728;15039,True,see complete response matrix
+4815,Murkshallow Snapclaw,7,1,SmartAI,,8379,True,see complete response matrix
+4818,Blindlight Murloc,10,1,SmartAI,,7164;7405,True,see complete response matrix
+4819,Blindlight Muckdweller,5,1,SmartAI,,8382,True,see complete response matrix
+4820,Blindlight Oracle,5,1,SmartAI,,6063;8362;9532,True,see complete response matrix
+4821,Skittering Crustacean,11,1,SmartAI,,,True,see complete response matrix
+4822,Snapping Crustacean,18,1,,,,False,see complete response matrix
+4823,Barbed Crustacean,2,1,SmartAI,,,True,see complete response matrix
+4824,Aku'mai Fisher,6,1,,,,False,see complete response matrix
+4825,Aku'mai Snapjaw,7,1,SmartAI,,8391,False,see complete response matrix
+4827,Deep Pool Threshfin,8,1,SmartAI,,3604,False,see complete response matrix
+4829,Aku'mai,1,1,SmartAI,,3490;3815,False,see complete response matrix
+4830,Old Serra'kis,1,1,,,,False,see complete response matrix
+4831,Lady Sarevess,1,1,SmartAI,,246;865;6660;8435,False,see complete response matrix
+4832,Twilight Lord Kelris,1,1,SmartAI,,8399;8734;15587,False,see complete response matrix
+4887,Ghamoo-ra,1,1,SmartAI,,5568,False,see complete response matrix
+4977,Murkshallow Softshell,0,0,SmartAI,,,False,see complete response matrix
+4978,Aku'mai Servant,0,1,SmartAI,,865;15043,False,see complete response matrix
+6047,Aqua Guardian,0,0,SmartAI,,865,False,see complete response matrix
+6243,Gelihast,1,1,SmartAI,,6533,False,see complete response matrix
+6729,Morridune,0,0,SmartAI,,9268,False,see complete response matrix
+8996,Voidwalker Minion,0,0,SmartAI,,33914,False,see complete response matrix
+12876,Baron Aquanis,0,1,SmartAI,,14907;15043,False,see complete response matrix
+12902,Lorgus Jett,3,1,SmartAI,,12167;12550,False,see complete response matrix

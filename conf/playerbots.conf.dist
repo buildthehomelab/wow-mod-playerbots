@@ -3288,3 +3288,6 @@ RaidClear.TempleOfAhnQiraj.BugTrio.HealerSpot = ""
 
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotA = ""
 RaidClear.TempleOfAhnQiraj.TwinEmperors.TankSpotB = ""
+
+# Opt-in Blackfathom combat responses; retains generic class spell selection.
+Playerbots.EnableBlackfathomMechanics = 0
