@@ -28,6 +28,7 @@
 #include "UldTriggerContext.h"
 #include "VanillaDungeonTriggerContext.h"
 #include "VoATriggerContext.h"
+#include "WailingCavernsContexts.h"
 #include "WorldPacketTriggerContext.h"
 #include "WotlkDungeonTriggerContext.h"
 #include "ZATriggerContext.h"
@@ -35,6 +36,7 @@
 void AiObjectContext::BuildSharedTriggerContexts(
     SharedNamedObjectContextList<Trigger>& triggerContexts)
 {
+    triggerContexts.Add(new WailingCavernsTriggerContext());
     triggerContexts.Add(new TriggerContext());
     triggerContexts.Add(new ChatTriggerContext());
     triggerContexts.Add(new WorldPacketTriggerContext());
