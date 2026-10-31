@@ -1111,10 +1111,20 @@ void PlayerbotFactory::Refresh()
     InitSpecialSpells();
     InitMounts();
     InitKeyring();
+    bool const isRandomBot = sRandomPlayerbotMgr.IsRandomBot(bot);
     if (!sPlayerbotAIConfig.EquipAndSpecPersistence ||
         bot->GetLevel() < sPlayerbotAIConfig.EquipAndSpecPersistenceLevel)
     {
         InitTalentsTree(true, true, true);
+    }
+    // Spec persistence keeps a bot's talents, but not when the core took them: a lower talent count
+    // (a module or config change) resets every talent at login, and a bot at the top level never
+    // levels up to pick them again. Spend free points as AutoMaintenanceOnLevelupAction does.
+    else if (bot->GetFreeTalentPoints() > 0 &&
+             (isRandomBot ? sPlayerbotAIConfig.AutoPickTalents
+                          : sPlayerbotAIConfig.AutoPickTalentsForPlayerControlledBots))
+    {
+        InitTalentsTree(true, true, isRandomBot);
     }
     if (bot->GetLevel() >= sPlayerbotAIConfig.MinEnchantingBotLevel)
         ApplyEnchantAndGemsNew();
